@@ -13,7 +13,7 @@ setup(
   description='Search torrents from the command-line',
   author='Levi Sabah',
   author_email='0xl3vi@gmail.com',
-  license='GPL-3.0',
+  license='MIT',
   keywords=['command line', 'torrent'],
   url='https://github.com/0xl3vi/we-get',
   packages=find_packages(),

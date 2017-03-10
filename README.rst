@@ -48,11 +48,29 @@ Basic Usage
 ================    =======================================
 
 Options
--------
+--------
+
+==================    =========================================
+ -s --search <term>    search query
+ -l --list             list top torrents (can't be with --search)
+ -t --target           target module (see -G)
+ -L --links            show download links for the torrents
+ -J --json             output in json format
+ -G --get-list         list available modules
+ -f --filter           can be regular expression or text to match in the torrent name
+ -n --results          number of results to retrieve
+==================    =========================================
+
+Video options
+--------------
+
+==============   =======================
+ -q --quality      try to match video quality to the torrent (720p, 1080p ...)
+ -g --genre        try to find genre for the torrent video.
+==============   =======================
 
 
 See also ``we-get --help``.
-
 
 Supported websites
 ------------------

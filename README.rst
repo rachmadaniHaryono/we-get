@@ -47,8 +47,22 @@ Basic Usage
 ``--filter``        can be regular expression or text to match in the torrent name.
 ================    =======================================
 
+Options
+-------
+
+
 See also ``we-get --help``.
 
+
+Supported websites
+------------------
+
+* 1337x
+* thepiratebay
+* eztv
+* yts
+
+and the list will grow.
 
 Contributing
 ------------

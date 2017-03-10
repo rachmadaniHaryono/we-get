@@ -1,0 +1,150 @@
+we-get: command-line tool for searching torrents.
+#################################################
+
+.. image:: https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square   :target:
+
+.. class:: head
+
+    .. image:: https://raw.githubusercontent.com/wiki/0xl3vi/we-get/screenshots/1.png
+        :alt: Main screenshot.
+        :width: 100%
+        :align: center
+
+
+
+.. contents::
+.. section-numbering::
+
+Installation
+============
+
+.. code-block:: bash
+
+    $ sudo python setup.py install
+
+``pip`` installation will be available in the future.
+
+
+Dependencies
+============
+
+* `prompt_toolkit <https://github.com/jonathanslenders/python-prompt-toolkit>`_
+* `docopt <https://github.com/docopt/docopt>`_
+* `colorama <https://github.com/tartley/colorama>`_
+
+and `Python <https://www.python.org/>`_ 3.5 or above
+
+Basic Usage
+===========
+
+.. code-block:: bash
+
+    $ we-get --search "royal pains" --target  the_pirate_bay,1337x --filter "S01"
+
+[[[cog
+  import subprocess
+  import cogapp as cog
+  
+  
+  def get_raw_text(text, keywords):
+      """get raw text"""
+      section_dict = {}
+      if isinstance(text, bytes):
+          text = text.decode('utf8')
+      # raw text contain raw text on each section
+      # data should contain list of tuple contain flags and description
+      default_section_dict = {'raw_text': None, 'data': None}
+      for key in keywords:
+          section_dict[key] = default_section_dict.copy()
+      for idx, keyword in enumerate(keywords):
+          first_part_text = text.split('{}:'.format(keyword), 1)[1]
+          try:
+              raw_text = first_part_text.split('{}:'.format(section_keywords[idx+1]), 1)[0]
+          except IndexError:
+              raw_text = first_part_text
+          raw_text = [line.strip() for line in raw_text.splitlines() if line.strip()]
+          raw_text = '\n'.join(raw_text)
+          section_dict[keyword]['raw_text'] = raw_text
+      return section_dict
+  
+  
+  def process_raw_text(input_dict):
+      """process raw text in input dict."""
+      for key in input_dict:
+          raw_text = input_dict[key]['raw_text']
+          data = []
+          for line in raw_text.splitlines():
+              # skip empty line
+              if not line.strip():
+                  continue
+              data.append([x.strip() for x in line.split(' ', 2)])
+          input_dict[key]['data'] = data
+      return input_dict
+  
+  
+  def create_rst_table(data):
+      """create rst table."""
+      # taken from http://stackoverflow.com/a/11350643
+      numcolumns = len(data[0])
+      colsizes = [max(len(r[i]) for r in data) for i in range(numcolumns)]
+      formatter = ' '.join('{:<%d}' % c for c in colsizes)
+      rowsformatted = [formatter.format(*row) for row in data]
+      header = formatter.format(*['=' * c for c in colsizes])
+      output = header + '\n' + '\n'.join(rowsformatted) + '\n' + header
+      return output
+  
+  
+  def get_output_text(input_dict, keywords):
+      """get output text."""
+      output_text = ""
+      # bassically same as section_keywords, but can be ordered for text output
+      for key in keywords:
+          output_text += '{}\n{}\n\n'.format(key, '-' * len(key))
+          # data contain list of tuple of (short flag, long flag, description)
+          data = input_dict[key]["data"]
+          formatted_data = []
+          for item in data:
+              formatted_data.append([' '.join([item[0], item[1]]), item[2]])
+          output_text += create_rst_table(formatted_data)
+          output_text += '\n\n'
+      return output_text
+  
+  text = subprocess.check_output("we-get --help", shell=True)
+  
+  section_keyword = ['Options', 'Video options', 'General options']
+  section_keywords = ('Options', 'Video options', 'General options')
+  result_dict = get_raw_text(text, section_keywords)
+  result_dict = process_raw_text(result_dict)
+  output_keywords = ('General options', 'Options', 'Video options')
+  output_text = get_output_text(result_dict, output_keywords)
+  
+  cog_obj = cog.Cog()
+  cog_obj.prout(output_text)
+]]]
+[[[end]]]
+
+
+See also ``we-get --help``.
+
+Supported websites
+------------------
+
+* 1337x
+* thepiratebay
+* eztv
+* yts
+
+and the list will grow.
+
+Contributing
+------------
+
+Any collaboration is welcome!
+
+If you want to write a module please see ``we_get/modules/``
+
+
+Licence
+-------
+
+MIT: `LICENSE <https://github.com/0xl3vi/we-get/blob/master/LICENSE>`_.

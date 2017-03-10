@@ -18,21 +18,27 @@ we-get: command-line tool for searching torrents.
 Installation
 ============
 
+run from the root folder
+
 .. code-block:: bash
 
     $ sudo python setup.py install
 
-``pip`` installation will be available in the future.
+
+or with ``pip``
+
+.. code-block:: bash
+
+    $ sudo pip install git+https://github.com/0xl3vi/we-get
 
 
 Dependencies
 ============
 
-* `prompt_toolkit <https://github.com/jonathanslenders/python-prompt-toolkit>`_
-* `docopt <https://github.com/docopt/docopt>`_
-* `colorama <https://github.com/tartley/colorama>`_
+* `prompt_toolkit <https://github.com/jonathanslenders/python-prompt-toolkit>`_, `docopt <https://github.com/docopt/docopt>`_, `colorama <https://github.com/tartley/colorama>`_
 
 and `Python <https://www.python.org/>`_ 3.5 or above
+
 
 Basic Usage
 ===========
@@ -46,29 +52,6 @@ Basic Usage
 ``--target``        specify module[s] to use, you can use multiple modules separated by comma. 
 ``--filter``        can be regular expression or text to match in the torrent name.
 ================    =======================================
-
-Options
---------
-
-==================    =========================================
- -s --search <term>    search query
- -l --list             list top torrents (can't be with --search)
- -t --target           target module (see -G)
- -L --links            show download links for the torrents
- -J --json             output in json format
- -G --get-list         list available modules
- -f --filter           can be regular expression or text to match in the torrent name
- -n --results          number of results to retrieve
-==================    =========================================
-
-Video options
---------------
-
-==============   =======================
- -q --quality      try to match video quality to the torrent (720p, 1080p ...)
- -g --genre        try to find genre for the torrent video.
-==============   =======================
-
 
 See also ``we-get --help``.
 

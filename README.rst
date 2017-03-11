@@ -47,11 +47,38 @@ Basic Usage
 
     $ we-get --search "royal pains" --target  the_pirate_bay,1337x --filter "S01"
 
-================    =======================================
-``--search``        search term.
-``--target``        specify module[s] to use, you can use multiple modules separated by comma. 
-``--filter``        can be regular expression or text to match in the torrent name.
-================    =======================================
+General options
+---------------
+
+============ =============
+-h --help    Help message.
+-v --version Show version.
+============ =============
+
+Options
+-------
+
+===================== =====================================================
+-s --search=<text>    Search for a torrent.                                
+-l --list             List top torrents from modules.                      
+-t --target=<target>  Select module to use or 'all'.                       
+-L --links            Output results as links.                             
+-J --json             Output results in JSON format.                       
+-G --get-list         List targets (supported web-sites).                  
+-f --filter=<str>     Match text or regular expression in the torrent name.
+-n --results=<n>      Number of results to retrieve.                       
+-S --sort-type=<type> Sort torrents by name/seeds (default: seeds).        
+===================== =====================================================
+
+Video options
+-------------
+
+================ ==================================================================
+-q --quality=<q> Try to match quality for the torrent (720p,1080p, ...).           
+-g --genre=<g>   Try to select video genre for the torrent (action, comedy, etc..).
+================ ==================================================================
+
+
 
 See also ``we-get --help``.
 

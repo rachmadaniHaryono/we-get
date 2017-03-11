@@ -10,26 +10,26 @@ COMMANDS = {
      'usage' : '[torrent/regex] [options]',  
      'required_argument' : True,
      'opts' : {
-       '--link' : 'Show .torrent/magnet link', 
-       '--seeds' : 'Show number of seeds', 
-       '--leeches' : 'Show number of leeches for this torrent',
-       '--target' : 'Show torrent target'
+       '--link' : 'show .torrent/magnet link',
+       '--seeds' : 'show number of seeds',
+       '--leeches' : 'show number of leeches for this torrent',
+       '--target' : 'show torrent target'
      }
    },
   'list' : {
-    'help' : 'List torrents',
+    'help' : 'list torrents',
     'usage' : '',
     'required_argument' : False,
     'opts' : {}
   },
   'exit' : {
-    'help' : 'Exit the shell',
+    'help' : 'exit the shell',
     'usage' : '',
     'required_argument' : False,
     'opts': {}
   },
   'help' : {
-    'help' : 'Show help message',
+    'help' : 'show help message',
     'usage' : '',
     'required_argument' : False,
     'opts' : {}

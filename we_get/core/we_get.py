@@ -10,10 +10,8 @@ from sys import exit
 from json import dumps
 from docopt import docopt
 from importlib import import_module
-from we_get.core.utils import format_help
-from we_get.core.utils import msg_error
-from we_get.core.utils import msg_fetching
-from we_get.core.utils import list_wg_modules
+from we_get.core.utils import format_help, msg_info, msg_err_trace, msg_error,\
+    msg_fetching, list_wg_modules
 
 __version__ = "1.0"
 __doc__ = """Usage: we-get [options]...

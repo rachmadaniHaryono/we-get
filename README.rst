@@ -104,3 +104,14 @@ Licence
 -------
 
 MIT: `LICENSE <https://github.com/0xl3vi/we-get/blob/master/LICENSE>`_.
+
+Testing
+=======
+
+Dependencies
+------------
+
+* pytest
+* pytest-flake8
+
+Run tests with ``python -m pytest --flake8``.

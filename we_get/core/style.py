@@ -6,8 +6,6 @@ See the file 'LICENSE' for copying.
 """
 
 from prompt_toolkit.token import Token
-from prompt_toolkit import prompt
-from prompt_toolkit.contrib.completers import WordCompleter
 from prompt_toolkit.styles import style_from_dict
 
 DEFAULT_STYLE_EXTENSIONS = style_from_dict({

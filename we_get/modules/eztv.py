@@ -5,7 +5,6 @@ See the file 'LICENSE' for copying permission
 
 from we_get.core.module import Module
 import re
-import sys
 
 BASE_URL = "http://eztv.ag"
 SEARCH_LOC = "/search/%s/"

@@ -5,7 +5,7 @@ we-get: command-line tool for searching torrents.
 
 .. class:: head
 
-    .. image:: https://raw.githubusercontent.com/wiki/0xl3vi/we-get/screenshots/1.png
+    .. image:: https://raw.githubusercontent.com/rachmadaniHaryono/we-get/master/res/screenshot.png
         :alt: Main screenshot.
         :width: 100%
         :align: center

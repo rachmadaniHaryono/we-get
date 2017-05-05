@@ -15,7 +15,7 @@ setup(
     author_email='0xl3vi@gmail.com',
     license='MIT',
     keywords=['command line', 'torrent'],
-    url='https://github.com/0xl3vi/we-get',
+    url='https://github.com/rachmadaniHaryono/we-get',
     packages=find_packages(),
     install_requires=['docopt', 'prompt_toolkit', 'colorama'],
     include_package_data=True,

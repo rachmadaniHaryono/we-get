@@ -29,7 +29,7 @@ or with ``pip``
 
 .. code-block:: bash
 
-    $ sudo pip install git+https://github.com/0xl3vi/we-get
+    $ sudo pip install git+https://github.com/rachmadaniHaryono/we-get
 
 
 Dependencies
@@ -103,7 +103,7 @@ If you want to write a module please see ``we_get/modules/``
 Licence
 -------
 
-MIT: `LICENSE <https://github.com/0xl3vi/we-get/blob/master/LICENSE>`_.
+MIT: `LICENSE <https://github.com/rachmadaniHaryono/we-get/blob/master/LICENSE>`_.
 
 Testing
 =======

@@ -3,15 +3,24 @@ Copyright (c) 2016 we-get developers (https://github.com/rachmadaniHaryono/we-ge
 See the file 'LICENSE' for copying.
 """
 
-import collections
-import re
 from collections import OrderedDict
-from sys import exit
-from json import dumps
 from docopt import docopt
 from importlib import import_module
-from we_get.core.utils import format_help, msg_info, msg_err_trace, msg_error,\
-    msg_fetching, list_wg_modules
+from json import dumps
+from sys import exit
+import collections
+import itertools
+import logging
+import re
+
+from we_get.core.utils import (
+    format_help,
+    list_wg_modules,
+    msg_err_trace,
+    msg_error,
+    msg_fetching,
+    msg_info,
+)
 
 __version__ = "1.0"
 __doc__ = """Usage: we-get [options]...
@@ -68,10 +77,27 @@ class WGSelect(object):
 
     def cut_items(self, items, results):
         """cut_items: show N items.
+
+        for cutting OrderedDict use method as on link below
+        https://stackoverflow.com/a/12988463/1766261
+
+        Args:
+            items (OrderedDict): Items to cut.
+            results (int): Number of item to cut.
+
         """
         nitems = dict()
-        for key in sorted(items)[:results]:
-            nitems.update({key: items[key]})
+        # cutting have to follow the sorted rule
+        if self.sort_type == "name":
+            sorted_items = self.sort_items_by_name(items)
+        else:
+            sorted_items = self.sort_items_by_seeds(items)
+        sorted_items = iter(sorted_items.items())
+        try:
+            nitems = OrderedDict(itertools.islice(sorted_items, results))
+        except ValueError as e:
+            logging.error('Error when cut items: n={}'.format(results))
+            nitems = items
         return nitems
 
     def filter_items(self, fx):
@@ -140,12 +166,13 @@ class WGSelect(object):
         """Sort self.items"""
         if self.filter:
             self.items = self.filter_items(self.filter)
-        if self.results:
-            self.items = self.cut_items(self.items, self.results)
         if self.sort_type == "name":
             self.items = self.sort_items_by_name(self.items)
         else:
             self.items = self.sort_items_by_seeds(self.items)
+        # items cut must at the end of item processing.
+        if self.results:
+            self.items = self.cut_items(self.items, self.results)
 
         if api_mode:
             return self.items

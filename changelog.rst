@@ -8,7 +8,7 @@ and this project adheres to `Semantic Versioning<http://semver.org/spec/v2.0.0.h
 [Unreleased]
 ------------
 
-0.2.0 - 2018-07-08
+1.1.0 - 2018-07-08
 ------------------
 
 Fixed
@@ -16,7 +16,7 @@ Fixed
 
 - prompt_toolkit upgrade
 
-0.1.0 - 2017-04-26
+1.0.0 - 2017-04-26
 ------------------
 
 New

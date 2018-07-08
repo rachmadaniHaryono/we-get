@@ -22,7 +22,7 @@ from we_get.core.utils import (
     msg_info,
 )
 
-__version__ = "1.0"
+__version__ = "1.1.0"
 __doc__ = """Usage: we-get [options]...
 
 Options:

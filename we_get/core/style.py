@@ -4,11 +4,24 @@ See the file 'LICENSE' for copying.
 
  This code is from the prompt_toolkit library by `Jonathan Slenders`.
 """
+import logging
 
-from prompt_toolkit.token import Token
-from prompt_toolkit.styles import style_from_dict
+try:
+    from prompt_toolkit.token import Token
+except ImportError:
+    from pygments.token import Token
+try:
+    from prompt_toolkit.styles import style_from_dict
+except ImportError:
+    from prompt_toolkit.styles import Style
+    style_from_dict = Style.from_dict
 
-DEFAULT_STYLE_EXTENSIONS = style_from_dict({
+
+log = logging.getLogger(__name__)
+
+
+try:
+    DEFAULT_STYLE_EXTENSIONS = style_from_dict({
     # Highlighting of search matches in document.
     Token.SearchMatch: 'noinherit reverse',
     Token.SearchMatch.Current: 'noinherit #268bd2 bg:#002b36 underline',
@@ -83,6 +96,9 @@ DEFAULT_STYLE_EXTENSIONS = style_from_dict({
 
     # Entering a Vi digraph.
     Token.Digraph: '#4444ff',
-})
+    })
+    we_get_prompt_style = DEFAULT_STYLE_EXTENSIONS
+except TypeError as e:
+    log.debug('{}:{}'.format(type(e), e))
+    we_get_prompt_style = None
 
-we_get_prompt_style = DEFAULT_STYLE_EXTENSIONS

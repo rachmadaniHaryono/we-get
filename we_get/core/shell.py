@@ -2,7 +2,7 @@
 Copyright (c) 2016 we-get developers (https://github.com/rachmadaniHaryono/we-get/)
 See the file 'LICENSE' for copying.
 """
-
+import logging
 import re
 from json import dumps
 from sys import stdout
@@ -14,9 +14,19 @@ from we_get.core.utils import msg_error
 from we_get.core.commands import COMMANDS
 from we_get.core.completer import WGCompleter
 from we_get.core.style import we_get_prompt_style
+
+import prompt_toolkit
 from prompt_toolkit import prompt
 from prompt_toolkit.history import InMemoryHistory
 from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
+
+
+PROMPT_TOOLKIT_V2 = prompt_toolkit.__version__.split('.')[0] == '2'
+if PROMPT_TOOLKIT_V2:
+    from prompt_toolkit import PromptSession
+
+
+log = logging.getLogger(__name__)
 
 
 class Shell(object):
@@ -135,13 +145,23 @@ class Shell(object):
         self.prompt_show_items()
         history = InMemoryHistory()
 
+        session = PromptSession() if PROMPT_TOOLKIT_V2 else None
         while True:
-            p = prompt(
-                u'we-get > ', history=history,
+            kwargs = dict(
+                history=history,
                 auto_suggest=AutoSuggestFromHistory(),
                 completer=WGCompleter(list(self.items.keys())),
                 style=we_get_prompt_style
             )
+            try:
+                p = prompt(u'we-get > ', **kwargs)
+            except TypeError as e:
+                log.debug('{}:{}'.format(type(e), e))
+                kwargs.pop('history')
+                if PROMPT_TOOLKIT_V2:
+                    p = session.prompt(u'we-get > ', **kwargs)
+                else:
+                    p = prompt(u'we-get > ', **kwargs)
 
             if self.prompt_no_command(p):
                 continue

@@ -17,7 +17,12 @@ setup(
     keywords=['command line', 'torrent'],
     url='https://github.com/rachmadaniHaryono/we-get',
     packages=find_packages(),
-    install_requires=['docopt', 'prompt_toolkit>=2.0.3', 'colorama'],
+    install_requires=[
+        'colorama',
+        'docopt',
+        'prompt_toolkit>=2.0.3',
+        'Pygments>=2.2.0',
+    ],
     include_package_data=True,
     package_data={'we_get': ['txt/useragents.txt']},
     entry_points={'console_scripts': ['we-get=we_get:main']}

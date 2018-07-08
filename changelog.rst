@@ -2,13 +2,21 @@ Changelog
 =========
 All notable changes to this project will be documented in this file.
 
-The format is based on `Keep a Changelog<http://keepachangelog.com/en/1.0.0/`_
-and this project adheres to `Semantic Versioning<http://semver.org/spec/v2.0.0.html`_.
+The format is based on `Keep a Changelog<http://keepachangelog.com/en/1.0.0/>`_
+and this project adheres to `Semantic Versioning<http://semver.org/spec/v2.0.0.html>`_.
 
 [Unreleased]
 ------------
 
-0.1.0 - 2018-07-08
+0.2.0 - 2018-07-08
+------------------
+
+Fixed
+~~~~~
+
+- prompt_toolkit upgrade
+
+0.1.0 - 2017-04-26
 ------------------
 
 New

@@ -1,5 +1,5 @@
 """
-Copyright (c) 2016-2018 we-get developers (https://github.com/rachmadaniHaryono/we-get/)
+Copyright (c) 2016-2019 we-get developers (https://github.com/rachmadaniHaryono/we-get/)
 See the file 'LICENSE' for copying.
 
  This code is from the prompt_toolkit library by `Jonathan Slenders`.

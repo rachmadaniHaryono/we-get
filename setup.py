@@ -23,6 +23,7 @@ setup(
         'prompt_toolkit>=2.0.3',
         'Pygments>=2.2.0',
     ],
+    extras_require={'test':  ["pytest", "pytest-flake8"], },
     include_package_data=True,
     package_data={'we_get': ['txt/useragents.txt']},
     entry_points={'console_scripts': ['we-get=we_get:main']}

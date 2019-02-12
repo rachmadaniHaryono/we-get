@@ -20,7 +20,8 @@ COLORS = {
     "blue": Fore.BLUE,
     "yellow": Fore.YELLOW,
     "cyan": Fore.CYAN,
-    "white": Fore.WHITE
+    "white": Fore.WHITE,
+    "magenta": Fore.MAGENTA,
 }
 
 
@@ -121,10 +122,20 @@ def msg_item(item, items):
     seeds = items['seeds']
     target = items['target']
 
-    sys.stdout.write(
-        "%s %s [%s/%s]\n" % (color("green", target), color("white", item),
-                             color("green", seeds), color("red", leeches))
+    text = (
+        "%s %s [%s/%s]" % (
+            color("green", target), color("white", item),
+            color("green", seeds), color("red", leeches)
+        )
     )
+
+    user_status = items.get('user_status', None)
+    if user_status and user_status is not None:
+        c_text = color('green', user_status) \
+            if user_status == 'vip' else color('magenta', user_status)
+        text += ' %s' % c_text
+
+    sys.stdout.write(text + '\n')
 
 
 def mkpath(path):

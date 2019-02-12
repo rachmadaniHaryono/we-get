@@ -45,9 +45,16 @@ class the_pirate_bay(object):
                 r'<td align=\"right\">(\d+)</td>', item
             )
             magnet = re.findall(r'href=[\'"]?([^\'">]+)', item)[1]
+            user_status = re.findall(r'<img.+title="(Trusted|VIP)"', item)
+            try:
+                user_status = user_status[0].lower()
+            except IndexError:
+                user_status = None
             name = self.module.fix_name(self.module.magnet2name(magnet))
             self.items.update({
-                name: {'seeds': seeds, 'leeches': leeches, 'link': magnet}
+                name: {
+                    'seeds': seeds, 'leeches': leeches,
+                    'link': magnet, 'user_status': user_status}
             })
 
     def search(self):

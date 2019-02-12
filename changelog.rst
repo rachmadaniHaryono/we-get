@@ -8,6 +8,11 @@ and this project adheres to `Semantic Versioning<http://semver.org/spec/v2.0.0.h
 [Unreleased]
 ------------
 
+New
+~~~
+
+- user status for pirate bay
+
 1.1.0 - 2018-07-08
 ------------------
 

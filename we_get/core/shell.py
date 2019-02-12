@@ -83,10 +83,10 @@ class Shell(object):
             args = None
 
         """In this method we can use regex in the torrent name.
-           for example only show torrents with 'S0\d' string.
+           for example only show torrents with 'S0\\d' string.
            more exmaples:
             show .Cool --link # Show all torrents with .Cool
-            show Cool.Torrent\d --target
+            show Cool.Torrent\\d --target
         """
         if torrent in self.items.keys():
             items_idx = [torrent]
@@ -95,6 +95,7 @@ class Shell(object):
                 items_idx = [item for item in self.items.keys() if
                              re.search(torrent, item)]
             except Exception as e:
+                log.error('{}: {}'.format(type(e), e))
                 msg_error("Invalid regular expression or torrent name.", False)
                 return
 

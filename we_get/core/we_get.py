@@ -95,7 +95,7 @@ class WGSelect(object):
         sorted_items = iter(sorted_items.items())
         try:
             nitems = OrderedDict(itertools.islice(sorted_items, results))
-        except ValueError as e:
+        except ValueError:
             logging.error('Error when cut items: n={}'.format(results))
             nitems = items
         return nitems

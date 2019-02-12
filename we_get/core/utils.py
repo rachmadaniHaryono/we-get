@@ -30,8 +30,8 @@ def format_help(doc, errmsg):
     for line in doc.split("\n"):
         if "options:" in line or "Options" in line:
             line = color("yellow", line)
-        elif re.findall('<(\w+)>', line):
-            value = re.findall('<(\w+)>', line)[0]
+        elif re.findall(r'<(\w+)>', line):
+            value = re.findall(r'<(\w+)>', line)[0]
             line = line.replace('<%s>' % (value),
                                 "[%s]" % (color("cyan", value)))
             line = line.replace('=', ' ')

@@ -207,8 +207,11 @@ class WG(object):
                 parg.update({arg: self.arguments[arg]})
         return parg
 
-    def parse_arguments(self):
-        self.arguments = docopt(__doc__)
+    def parse_arguments(self, argv=None):
+        if argv:
+            self.arguments = docopt(__doc__, argv=argv)
+        else:
+            self.arguments = docopt(__doc__)
         self.parguments = self.get_provided_arguments()
 
         if not self.parguments:

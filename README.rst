@@ -78,9 +78,46 @@ Video options
 -g --genre=<g>   Try to select video genre for the torrent (action, comedy, etc..).
 ================ ==================================================================
 
-
-
 See also ``we-get --help``.
+
+Python Module
+-------------
+
+.. code-block:: python
+
+   >>> from we_get.core.we_get import WG
+   >>> we_get = WG()
+   >>> we_get.parse_arguments(['--search', 'ubuntu', '--target', 'all'])
+   >>> res = we_get.start(api_mode=True)
+   OrderedDict([
+      (
+         'Ubuntu.MATE.16.04.2.[MATE][armhf][img.xz][Uzerus]', {
+            'seeds': '260',
+            'leeches': '2',
+            'link':
+                'magnet:?xt=urn:btih:D0F23C109D8662A3FE9338F75839AF8D57E5D4A9'
+                '&dn=Ubuntu+MATE+16.04.2+%5BMATE%5D%5Barmhf%5D%5Bimg.xz%5D%5BUzerus%5D'
+                '&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80%2Fannounce'
+                '&tr=udp%3A%2F%2Ftracker.zer0day.to%3A1337%2Fannounce'
+                '&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969%2Fannounce'
+                '&tr=udp%3A%2F%2Fcoppersurfer.tk%3A6969%2Fannounce',
+            'target': '1337x'}
+      ),
+      ...
+   ])
+
+Older version can use `sys.argv` to input the arguments
+
+.. code-block:: python
+
+   >>> import sys
+   >>> from we_get.core.we_get import WG
+   >>> we_get = WG()
+   >>> sys.argv[1:] = ['--search', 'ubuntu', '--target', 'all']
+   >>> we_get.parse_arguments()
+   >>> we_get.start(api_mode=True)
+   ...
+
 
 Supported websites
 ------------------

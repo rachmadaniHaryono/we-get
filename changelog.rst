@@ -12,6 +12,7 @@ New
 ~~~
 
 - user status for pirate bay
+- argv for arguments
 
 1.1.0 - 2018-07-08
 ------------------

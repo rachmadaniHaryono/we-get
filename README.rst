@@ -1,7 +1,12 @@
 we-get: command-line tool for searching torrents.
 #################################################
 
-.. image:: https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square   :target:
+.. image:: https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square   
+    :target: https://github.com/rachmadaniHaryono/we-get/blob/master/LICENSE
+    
+    
+.. image:: https://img.shields.io/aur/version/we-get-git.svg?maxAge=600
+    :target: https://aur.archlinux.org/packages/we-get-git/
 
 .. class:: head
 

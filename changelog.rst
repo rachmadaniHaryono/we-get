@@ -14,6 +14,12 @@ New
 - user status for pirate bay
 - argv for arguments
 
+Changes
+~~~~~~~
+
+- target parameter default to all
+
+
 1.1.0 - 2018-07-08
 ------------------
 

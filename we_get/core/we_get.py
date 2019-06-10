@@ -28,7 +28,7 @@ __doc__ = """Usage: we-get [options]...
 Options:
   -s --search=<text>    Search for a torrent.
   -l --list             List top torrents from modules.
-  -t --target=<target>  Select module to use or \'all\' [default: all].
+  -t --target=<target>  Select module to use or 'all' [default: all].
   -L --links            Output results as links.
   -J --json             Output results in JSON format.
   -G --get-list         List targets (supported web-sites).

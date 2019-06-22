@@ -8,6 +8,7 @@ from docopt import docopt
 from importlib import import_module
 from json import dumps
 from sys import exit
+from urllib.error import HTTPError
 import collections
 import itertools
 import logging
@@ -35,6 +36,7 @@ Options:
   -f --filter=<str>     Match text or regular expression in the torrent name.
   -n --results=<n>      Number of results to retrieve.
   -S --sort-type=<type> Sort torrents by name/seeds [default: seeds].
+  --ignore-http-error   Ignore HTTP error.
 
 Video options:
   -q --quality=<q>      Try to match quality for the torrent (720p,1080p, ...).
@@ -155,7 +157,14 @@ class WGSelect(object):
             except Exception:
                 msg_info("Module: \'%s.py\' stopped!" % (target))
                 msg_err_trace(True)
-            items = run.main(self.pargs)
+            if self.pargs['--ignore-http-error']:
+                try:
+                    items = run.main(self.pargs)
+                except HTTPError as err:
+                    logging.error('Error: {}'.format(err))
+                    continue
+            else:
+                items = run.main(self.pargs)
             items = self.add_items_label(target, items)
             if items:
                 self.items.update(items)

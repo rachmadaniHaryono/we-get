@@ -15,6 +15,7 @@ from we_get.core import we_get
                 '--genre': [],
                 '--get-list': 0,
                 '--help': 0,
+                '--ignore-http-error': 0,
                 '--json': 0,
                 '--links': 0,
                 '--list': 0,
@@ -50,9 +51,10 @@ def test_parse_arguments(argv, exp_res):
         [
             [],
             {
-                '--filter': [], '--genre': [], '--get-list': 0, '--help': 0, '--json': 0,
-                '--links': 0, '--list': 0, '--quality': [], '--results': [], '--search': [],
-                '--sort-type': [], '--target': ['all'], '--version': 0}
+                '--filter': [], '--genre': [], '--get-list': 0, '--help': 0,
+                '--ignore-http-error': 0, '--json': 0, '--links': 0, '--list': 0, '--quality': [],
+                '--results': [], '--search': [], '--sort-type': [], '--target': ['all'],
+                '--version': 0}
         ],
     ],
 )

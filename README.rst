@@ -73,6 +73,7 @@ Options
 -f --filter=<str>     Match text or regular expression in the torrent name.
 -n --results=<n>      Number of results to retrieve.                       
 -S --sort-type=<type> Sort torrents by name/seeds [default: seeds].        
+--ignore-http-error   Ignore HTTP error.
 ===================== =====================================================
 
 Video options

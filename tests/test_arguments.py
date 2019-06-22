@@ -11,7 +11,7 @@ import sys
 class TestsArguments(unittest.TestCase):
     def test_number_of_arguments(self):
         args = docopt.docopt(__doc__)
-        self.assertEqual(len(args), 13)
+        self.assertEqual(len(args), 14)
 
     def test_required_argument_search(self):
         sys.argv = ['prog_name', '--search']

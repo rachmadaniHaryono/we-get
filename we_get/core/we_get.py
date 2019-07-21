@@ -8,7 +8,7 @@ from docopt import docopt
 from importlib import import_module
 from json import dumps
 from sys import exit
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 import collections
 import itertools
 import logging
@@ -159,6 +159,9 @@ class WGSelect(object):
                 msg_err_trace(True)
             try:
                 items = run.main(self.pargs)
+            except URLError:
+                msg_info("Module: \'%s.py\' have url error!" % (target))
+                msg_err_trace(True)
             except HTTPError as err:
                 if '--ignore-http-error' in self.pargs and self.pargs['--ignore-http-error']:
                     logging.error('Error: {}'.format(err))

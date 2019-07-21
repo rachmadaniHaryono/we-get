@@ -157,14 +157,14 @@ class WGSelect(object):
             except Exception:
                 msg_info("Module: \'%s.py\' stopped!" % (target))
                 msg_err_trace(True)
-            if self.pargs['--ignore-http-error']:
-                try:
-                    items = run.main(self.pargs)
-                except HTTPError as err:
+            try:
+                items = run.main(self.pargs)
+            except HTTPError as err:
+                if '--ignore-http-error' in self.pargs and self.pargs['--ignore-http-error']:
                     logging.error('Error: {}'.format(err))
                     continue
-            else:
-                items = run.main(self.pargs)
+                else:
+                    raise err
             items = self.add_items_label(target, items)
             if items:
                 self.items.update(items)

@@ -5,6 +5,7 @@ See the file 'LICENSE' for copying.
 
 import urllib.request
 import urllib.parse
+from urllib.error import URLError
 from we_get.core.utils import random_user_agent
 from html import unescape as html_decode
 
@@ -21,7 +22,12 @@ class Module(object):
         """
         opener = urllib.request.build_opener()
         opener.addheaders = [('User-Agent', USER_AGENT), ("Accept", "*/*")]
-        return opener.open(url).read().decode()
+        try:
+            res = opener.open(url).read().decode()
+            return res
+        except URLError as err:
+            print('Error when opening following url.\n{}'.format(url))
+            raise err
 
     def http_custom_get_request(self, url, headers):
         """ http_custom_get_request: HTTP GET request with custom headers.

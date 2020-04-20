@@ -3,6 +3,7 @@ Copyright (c) 2016-2019 we-get developers (https://github.com/rachmadaniHaryono/
 See the file 'LICENSE' for copying permission
 """
 
+from urllib.parse import quote_plus
 from we_get.core.module import Module
 import re
 
@@ -54,7 +55,7 @@ class leetx(object):
         return item
 
     def search(self):
-        url = "%s%s" % (BASE_URL, SEARCH_LOC % (self.search_query))
+        url = "%s%s" % (BASE_URL, SEARCH_LOC % (quote_plus(self.search_query)))
         data = self.module.http_get_request(url)
         links = re.findall(r'href=[\'"]?([^\'">]+)', data)
         results = 0

@@ -6,8 +6,8 @@ See the file 'LICENSE' for copying permission
 from we_get.core.module import Module
 import re
 
-BASE_URL = "https://thepiratebay.org"
-SEARCH_LOC = "/search/%s/0/99/0"
+BASE_URL = "https://www1.thepiratebay3.to"
+SEARCH_LOC = "/search/%s/1/7/0"
 LIST_LOC = "/top/all"
 
 

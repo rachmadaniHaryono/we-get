@@ -20,8 +20,8 @@ setup(
     install_requires=[
         'colorama',
         'docopt',
-        'prompt_toolkit>=2.0.3',
-        'Pygments>=2.2.0',
+        'prompt-toolkit>=3.0.5',
+        'Pygments>=2.6.1',
     ],
     extras_require={
         'test':  ["pytest", "pytest-flake8", 'vcrpy'], },

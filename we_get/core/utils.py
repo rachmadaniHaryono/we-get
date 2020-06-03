@@ -8,7 +8,7 @@ import sys
 from glob import glob
 from os import sep
 from random import choice
-from typing import Dict
+from typing import Dict, Optional
 
 from colorama import Fore, Style
 from colorama import init as colorama_init
@@ -17,16 +17,26 @@ from we_get import __file__ as p
 
 colorama_init(autoreset=True)
 
+# supported color from colorama 0.4.3
+#  BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE
 COLORS = {
-    "red": Fore.RED,
-    "green": Fore.GREEN,
+    "black": Fore.BLACK,
     "blue": Fore.BLUE,
-    "yellow": Fore.YELLOW,
     "cyan": Fore.CYAN,
-    "white": Fore.WHITE,
+    "green": Fore.GREEN,
     "magenta": Fore.MAGENTA,
+    "red": Fore.RED,
+    "white": Fore.WHITE,
+    "yellow": Fore.YELLOW,
 }
-
+ITEM_COLOR_SET = {
+    'leeches': 'red',
+    'target': 'green',
+    'item': 'white',
+    'seeds': 'green',
+    'user_status': 'green',
+    'user_status_vip': 'magenta'
+}
 
 def format_help(doc, errmsg):
     """ format_help: fix help message.
@@ -115,29 +125,40 @@ def msg_info(msg):
     sys.stdout.write("%s# %s\n" % (Fore.BLUE, msg))
 
 
-def msg_item(item: str, items: Dict[str, str]):
+def msg_item(
+        item: str,
+        items: Dict[str, str],
+        item_color: Optional[Dict[str, str]] = None
+):
     """ msg_item: print item.
       @item - name.
-      @seeds - number of seeds if any.
-      @leeches - number of leeches if any.
+      @items - item status (leeches, seed, target, etc)
+      @item_color - item color.
     """
+    cset = ITEM_COLOR_SET.copy()
+    if item_color is not None:
+        cset.update(item_color)
     leeches = items['leeches']
     seeds = items['seeds']
     target = items['target']
-
-    text = (
-        "%s %s [%s/%s]" % (
-            color("green", target), color("white", item),
-            color("green", seeds), color("red", leeches)
-        )
-    )
-
     user_status = items.get('user_status', None)
     if user_status and user_status is not None:
-        c_text = color('green', user_status) \
-            if user_status == 'vip' else color('magenta', user_status)
-        text += ' %s' % c_text
+        if user_status == 'vip':
+            user_status_text = color(cset['user_status_vip'], user_status)
+        else:
+            color(cset['user_status'], user_status)
+    else:
+        user_status_text = ''
 
+    text = (
+        "%s %s [%s/%s] %s" % (
+            color(cset['target'], target),
+            color(cset['item'], item),
+            color(cset['seeds'], seeds),
+            color(cset['leeches'], leeches),
+            user_status_text
+        )
+    )
     sys.stdout.write(text + '\n')
 
 

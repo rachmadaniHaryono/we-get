@@ -3,14 +3,17 @@ Copyright (c) 2016-2020 we-get developers (https://github.com/rachmadaniHaryono/
 See the file 'LICENSE' for copying.
 """
 
-import sys
-from random import choice
 import re
-from os import sep
-from we_get import __file__ as p
+import sys
 from glob import glob
-from colorama import init as colorama_init
+from os import sep
+from random import choice
+from typing import Dict
+
 from colorama import Fore, Style
+from colorama import init as colorama_init
+
+from we_get import __file__ as p
 
 colorama_init(autoreset=True)
 
@@ -112,7 +115,7 @@ def msg_info(msg):
     sys.stdout.write("%s# %s\n" % (Fore.BLUE, msg))
 
 
-def msg_item(item, items):
+def msg_item(item: str, items: Dict[str, str]):
     """ msg_item: print item.
       @item - name.
       @seeds - number of seeds if any.

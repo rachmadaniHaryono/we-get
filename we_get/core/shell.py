@@ -6,20 +6,16 @@ import logging
 import re
 from json import dumps
 from sys import stdout
-from we_get.core.utils import printc
-from we_get.core.utils import printc_raw
-from we_get.core.utils import color
-from we_get.core.utils import msg_item
-from we_get.core.utils import msg_error
-from we_get.core.commands import COMMANDS
-from we_get.core.completer import WGCompleter
-from we_get.core.style import we_get_prompt_style
 
 import prompt_toolkit
 from prompt_toolkit import prompt
-from prompt_toolkit.history import InMemoryHistory
 from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
+from prompt_toolkit.history import InMemoryHistory
 
+from we_get.core.commands import COMMANDS
+from we_get.core.completer import WGCompleter
+from we_get.core.style import we_get_prompt_style
+from we_get.core.utils import color, msg_error, msg_item, printc, printc_raw, ITEM_COLOR_SET
 
 PROMPT_TOOLKIT_V2 = prompt_toolkit.__version__.split('.')[0] == '2'
 if PROMPT_TOOLKIT_V2:
@@ -35,6 +31,7 @@ class Shell(object):
         self.pargs = None
         self.items = None
         self.show_links = False
+        self.item_color = ITEM_COLOR_SET.copy()
 
     def prompt_usage(self):
         printc("white", "Usage: help")
@@ -57,7 +54,7 @@ class Shell(object):
 
     def prompt_show_items(self):
         for item in self.items:
-            msg_item(item, self.items[item])
+            msg_item(item, self.items[item], self.item_color)
 
     def prompt_verify_command(self, command, args):
         for x in COMMANDS:

@@ -15,7 +15,7 @@ from prompt_toolkit.history import InMemoryHistory
 from we_get.core.commands import COMMANDS
 from we_get.core.completer import WGCompleter
 from we_get.core.style import we_get_prompt_style
-from we_get.core.utils import color, msg_error, msg_item, printc, printc_raw, ITEM_COLOR_SET
+from we_get.core.utils import color, msg_error, msg_item, printc, printc_raw
 
 PROMPT_TOOLKIT_V2 = prompt_toolkit.__version__.split('.')[0] == '2'
 if PROMPT_TOOLKIT_V2:
@@ -31,7 +31,7 @@ class Shell(object):
         self.pargs = None
         self.items = None
         self.show_links = False
-        self.item_color = ITEM_COLOR_SET.copy()
+        self.item_color = None
 
     def prompt_usage(self):
         printc("white", "Usage: help")

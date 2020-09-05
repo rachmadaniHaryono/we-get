@@ -60,7 +60,10 @@ class yts(object):
 
     def list(self):
         url = "%s%s" % (BASE_URL, LIST_LOC % (self.quality, self.genre))
-        data = json.loads(self.module.http_get_request(url))
+        try:
+            data = json.loads(self.module.http_get_request(url))
+        except json.decoder.JSONDecodeError:
+            return self.items
         try:
             api = data['data']['movies']
         except KeyError:

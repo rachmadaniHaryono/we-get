@@ -193,7 +193,7 @@ class WGSelect(object):
             # we-get will load 50% faster!
             from we_get.core.shell import Shell
             self.shell = Shell()
-            if self.config['item_color']:
+            if hasattr(self, 'config') and self.config['item_color']:
                 self.shell.item_color.update(self.config['item_color'])
             self.shell.shell(self.items, self.pargs)
 

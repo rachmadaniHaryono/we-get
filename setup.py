@@ -20,6 +20,7 @@ setup(
     install_requires=[
         'colorama',
         'docopt',
+        'beautifulsoup4',
         'prompt_toolkit>=2.0.3',
         'Pygments>=2.2.0',
     ],

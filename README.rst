@@ -40,7 +40,7 @@ or with ``pip``
 Dependencies
 ============
 
-* `prompt_toolkit <https://github.com/jonathanslenders/python-prompt-toolkit>`_, `docopt <https://github.com/docopt/docopt>`_, `colorama <https://github.com/tartley/colorama>`_
+* `prompt_toolkit <https://github.com/jonathanslenders/python-prompt-toolkit>`_, `docopt <https://github.com/docopt/docopt>`_, `colorama <https://github.com/tartley/colorama>`_, `beautifulsoup4 <https://github.com/wention/BeautifulSoup4>`_
 
 and `Python <https://www.python.org/>`_ 3.5 or above
 

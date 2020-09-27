@@ -2,12 +2,13 @@
 Copyright (c) 2016-2019 we-get developers (https://github.com/rachmadaniHaryono/we-get/)
 See the file 'LICENSE' for copying permission
 """
+from bs4 import BeautifulSoup
 
 from we_get.core.module import Module
 import re
 
 BASE_URL = "https://www1.thepiratebay3.to"
-SEARCH_LOC = "/search/%s/1/7/0"
+SEARCH_LOC = "/s/?q="
 LIST_LOC = "/top/all"
 
 
@@ -33,38 +34,34 @@ class the_pirate_bay(object):
                 self.action = "list"
 
     def _parse_data(self, data):
-        data = data.replace('\t', '').replace('\n', '')
-        items = re.findall(
-            r'<div class=\"detName\">(.*?)<div class=\"detName\">', data)
+        soup = BeautifulSoup(data, 'html.parser')
+        items = soup.find_all("tr")
         seeds = None
         leeches = None
         magnet = None
 
         for item in items:
-            seeds, leeches = re.findall(
-                r'<td align=\"right\">(\d+)</td>', item
-            )
-            magnet = re.findall(r'href=[\'"]?([^\'">]+)', item)[1]
-            user_status = re.findall(r'<img.+title="(Trusted|VIP)"', item)
-            try:
-                user_status = user_status[0].lower()
-            except IndexError:
+            cols = item.find_all("td")
+            if len(cols) > 1:
+                name = cols[1].a.contents[0]
+                magnet = cols[3].a['href']
+                seeds = cols[5].contents[0]
+                leeches = cols[6].contents[0]
                 user_status = None
-            name = self.module.fix_name(self.module.magnet2name(magnet))
-            self.items.update({
-                name: {
-                    'seeds': seeds, 'leeches': leeches,
-                    'link': magnet, 'user_status': user_status}
-            })
+                self.items.update({
+                    name: {
+                        'seeds': seeds, 'leeches': leeches,
+                        'link': magnet, 'user_status': user_status}
+                })
 
     def search(self):
-        url = "%s%s" % (BASE_URL, SEARCH_LOC % (self.search_query))
+        url = f"{BASE_URL}{SEARCH_LOC}{self.search_query}"
         data = self.module.http_get_request(url)
         self._parse_data(data)
         return self.items
 
     def list(self):
-        url = "%s%s" % (BASE_URL, LIST_LOC)
+        url = f"{BASE_URL}{LIST_LOC}"
         data = self.module.http_get_request(url)
         self._parse_data(data)
         return self.items

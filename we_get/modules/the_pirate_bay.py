@@ -21,10 +21,10 @@ class the_pirate_bay(object):
         self.pargs = pargs
         self.action = None
         self.search_query = None
+        self.filter = ""
         self.module = Module()
         self.parse_pargs()
         self.items = dict()
-        self.filter = ""
 
     def parse_pargs(self):
         for opt in self.pargs:

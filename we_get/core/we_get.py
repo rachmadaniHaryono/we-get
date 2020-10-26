@@ -38,6 +38,7 @@ Options:
   -n --results=<n>      Number of results to retrieve.
   -S --sort-type=<type> Sort torrents by name/seeds [default: seeds].
   -c --config=<file>    Load config file.
+  -w --sfw              Restrict results to safe for work content (the_pirate_bay only) 
 
 Video options:
   -q --quality=<q>      Try to match quality for the torrent (720p,1080p, ...).

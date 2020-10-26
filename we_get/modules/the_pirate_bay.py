@@ -10,7 +10,7 @@ import re
 BASE_URL = "https://www1.thepiratebay3.to"
 SEARCH_LOC = "/s/?q="
 LIST_LOC = "/top/all"
-
+SFW_FILTER = "&audio=on&video=on&apps=on&games=on&other=on&category=0"
 
 class the_pirate_bay(object):
     """ the_pirate_bay module for we-get.
@@ -24,6 +24,7 @@ class the_pirate_bay(object):
         self.module = Module()
         self.parse_pargs()
         self.items = dict()
+        self.filter = ""
 
     def parse_pargs(self):
         for opt in self.pargs:
@@ -32,6 +33,8 @@ class the_pirate_bay(object):
                 self.search_query = self.pargs[opt][0].replace(' ', '-')
             elif opt == "--list":
                 self.action = "list"
+            if opt == "--sfw":
+                self.filter = SFW_FILTER
 
     def _parse_data(self, data):
         soup = BeautifulSoup(data, 'html.parser')
@@ -55,7 +58,7 @@ class the_pirate_bay(object):
                 })
 
     def search(self):
-        url = f"{BASE_URL}{SEARCH_LOC}{self.search_query}"
+        url = f"{BASE_URL}{SEARCH_LOC}{self.search_query}{self.filter}"
         data = self.module.http_get_request(url)
         self._parse_data(data)
         return self.items

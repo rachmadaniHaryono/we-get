@@ -1,17 +1,19 @@
 """
-Copyright (c) 2016-2019 we-get developers (https://github.com/rachmadaniHaryono/we-get/)
+Copyright (c) 2016-2020 we-get developers (https://github.com/rachmadaniHaryono/we-get/)
 See the file 'LICENSE' for copying.
 """
 
-from collections import OrderedDict
-from docopt import docopt
-from importlib import import_module
-from json import dumps
-from sys import exit
 import collections
+import configparser
 import itertools
 import logging
 import re
+from collections import OrderedDict
+from importlib import import_module
+from json import dumps
+from sys import exit
+
+from docopt import docopt
 
 from we_get.core.utils import (
     format_help,
@@ -19,7 +21,7 @@ from we_get.core.utils import (
     msg_err_trace,
     msg_error,
     msg_fetching,
-    msg_info,
+    msg_info
 )
 
 __version__ = "1.1.0"
@@ -35,6 +37,8 @@ Options:
   -f --filter=<str>     Match text or regular expression in the torrent name.
   -n --results=<n>      Number of results to retrieve.
   -S --sort-type=<type> Sort torrents by name/seeds [default: seeds].
+  -c --config=<file>    Load config file.
+  -w --sfw              Restrict results to safe for work content (the_pirate_bay only) 
 
 Video options:
   -q --quality=<q>      Try to match quality for the torrent (720p,1080p, ...).
@@ -74,6 +78,11 @@ class WGSelect(object):
                 self.results_type = 'J'
             elif arg == "--sort":
                 self.sort_type = self.pargs[arg][0]
+            elif arg == "--config":
+                self.config = configparser.ConfigParser()
+                config_file = self.pargs[arg][0]
+                with open(config_file) as f:
+                    self.config.read_file(f)
 
     def cut_items(self, items, results):
         """cut_items: show N items.
@@ -185,6 +194,8 @@ class WGSelect(object):
             # we-get will load 50% faster!
             from we_get.core.shell import Shell
             self.shell = Shell()
+            if hasattr(self, 'config') and self.config['item_color']:
+                self.shell.item_color.update(self.config['item_color'])
             self.shell.shell(self.items, self.pargs)
 
 

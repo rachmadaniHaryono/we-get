@@ -1,5 +1,5 @@
 """
-Copyright (c) 2016-2019 we-get developers (https://github.com/rachmadaniHaryono/we-get/)
+Copyright (c) 2016-2020 we-get developers (https://github.com/rachmadaniHaryono/we-get/)
 See the file 'LICENSE' for copying permission
 """
 from bs4 import BeautifulSoup
@@ -10,7 +10,7 @@ import re
 BASE_URL = "https://www1.thepiratebay3.to"
 SEARCH_LOC = "/s/?q="
 LIST_LOC = "/top/all"
-
+SFW_FILTER = "&audio=on&video=on&apps=on&games=on&other=on&category=0"
 
 class the_pirate_bay(object):
     """ the_pirate_bay module for we-get.
@@ -21,6 +21,7 @@ class the_pirate_bay(object):
         self.pargs = pargs
         self.action = None
         self.search_query = None
+        self.filter = ""
         self.module = Module()
         self.parse_pargs()
         self.items = dict()
@@ -32,6 +33,8 @@ class the_pirate_bay(object):
                 self.search_query = self.pargs[opt][0].replace(' ', '-')
             elif opt == "--list":
                 self.action = "list"
+            if opt == "--sfw":
+                self.filter = SFW_FILTER
 
     def _parse_data(self, data):
         soup = BeautifulSoup(data, 'html.parser')
@@ -55,7 +58,7 @@ class the_pirate_bay(object):
                 })
 
     def search(self):
-        url = f"{BASE_URL}{SEARCH_LOC}{self.search_query}"
+        url = f"{BASE_URL}{SEARCH_LOC}{self.search_query}{self.filter}"
         data = self.module.http_get_request(url)
         self._parse_data(data)
         return self.items

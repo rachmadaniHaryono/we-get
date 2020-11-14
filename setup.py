@@ -1,5 +1,5 @@
 """
-Copyright (c) 2016-2019 we-get developers (https://github.com/rachmadaniHaryono/we-get/)
+Copyright (c) 2016-2020 we-get developers (https://github.com/rachmadaniHaryono/we-get/)
 See the file 'LICENSE' for copying permission
 """
 
@@ -21,8 +21,8 @@ setup(
         'colorama',
         'docopt',
         'beautifulsoup4',
-        'prompt_toolkit>=2.0.3',
-        'Pygments>=2.2.0',
+        'prompt-toolkit>=3.0.5',
+        'Pygments>=2.6.1',
     ],
     extras_require={
         'test':  ["pytest", "pytest-flake8", 'vcrpy'], },

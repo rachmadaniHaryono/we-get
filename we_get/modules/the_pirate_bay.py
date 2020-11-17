@@ -45,7 +45,6 @@ class the_pirate_bay(object):
 
     def _parse_data(self, data):
         for row in json.loads(data):
-            print(row)
             self.items.update(
                 {
                     row["name"]: {

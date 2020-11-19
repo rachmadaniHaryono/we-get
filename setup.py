@@ -5,7 +5,7 @@ See the file 'LICENSE' for copying permission
 
 
 from setuptools import setup, find_packages
-version = '1.1.0'
+version = '1.1.1'
 
 setup(
     name='we-get',

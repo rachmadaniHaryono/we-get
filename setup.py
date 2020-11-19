@@ -1,11 +1,11 @@
 """
-Copyright (c) 2016-2019 we-get developers (https://github.com/rachmadaniHaryono/we-get/)
+Copyright (c) 2016-2020 we-get developers (https://github.com/rachmadaniHaryono/we-get/)
 See the file 'LICENSE' for copying permission
 """
 
 
 from setuptools import setup, find_packages
-version = '1.1.0'
+version = '1.1.1'
 
 setup(
     name='we-get',
@@ -20,8 +20,9 @@ setup(
     install_requires=[
         'colorama',
         'docopt',
-        'prompt_toolkit>=2.0.3',
-        'Pygments>=2.2.0',
+        'beautifulsoup4',
+        'prompt-toolkit>=3.0.5',
+        'Pygments>=2.6.1',
     ],
     extras_require={
         'test':  ["pytest", "pytest-flake8", 'vcrpy'], },

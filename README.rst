@@ -73,7 +73,8 @@ Options
 -f --filter=<str>     Match text or regular expression in the torrent name.
 -n --results=<n>      Number of results to retrieve.                       
 -S --sort-type=<type> Sort torrents by name/seeds [default: seeds].        
--c --config=<file>    Load config file.                                    
+-c --config=<file>    Load config file.
+-w --sfw              Restrict results to safe for work content (the_pirate_bay only)                                    
 ===================== =====================================================
 
 Video options

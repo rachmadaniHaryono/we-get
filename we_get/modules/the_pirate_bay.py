@@ -6,15 +6,19 @@ from bs4 import BeautifulSoup
 
 from we_get.core.module import Module
 import re
+import urllib
+import json
 
-BASE_URL = "https://www1.thepiratebay3.to"
-SEARCH_LOC = "/s/?q="
-LIST_LOC = "/top/all"
-SFW_FILTER = "&audio=on&video=on&apps=on&games=on&other=on&category=0"
+
+API_URL = "https://apibay.org"
+API_SEARCH_LOC = "/q.php?q="
+ALI_LIST_LOC = "/precompiled/data_top100_all.json"
+API_SFW_FILTER = "&cat=100,200,300,400,600"
+API_TRACKERS = "&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969%2Fannounce&tr=udp%3A%2F%2F9.rarbg.me%3A2850%2Fannounce&tr=udp%3A%2F%2F9.rarbg.to%3A2920%2Fannounce&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969%2Fannounce"
+
 
 class the_pirate_bay(object):
-    """ the_pirate_bay module for we-get.
-    """
+    """the_pirate_bay module for we-get."""
 
     def __init__(self, pargs):
         self.links = None
@@ -30,41 +34,36 @@ class the_pirate_bay(object):
         for opt in self.pargs:
             if opt == "--search":
                 self.action = "search"
-                self.search_query = self.pargs[opt][0].replace(' ', '-')
+                self.search_query = self.pargs[opt][0].replace(" ", "-")
             elif opt == "--list":
                 self.action = "list"
             if opt == "--sfw":
-                self.filter = SFW_FILTER
+                self.filter = API_SFW_FILTER
+
+    def generate_magnet(self, data):
+        return f"magnet:?xt=urn:btih:{data['info_hash']}&dn={urllib.parse.quote(data['name'])}{API_TRACKERS}"
 
     def _parse_data(self, data):
-        soup = BeautifulSoup(data, 'html.parser')
-        items = soup.find_all("tr")
-        seeds = None
-        leeches = None
-        magnet = None
-
-        for item in items:
-            cols = item.find_all("td")
-            if len(cols) > 1:
-                name = cols[1].a.contents[0]
-                magnet = cols[3].a['href']
-                seeds = cols[5].contents[0]
-                leeches = cols[6].contents[0]
-                user_status = None
-                self.items.update({
-                    name: {
-                        'seeds': seeds, 'leeches': leeches,
-                        'link': magnet, 'user_status': user_status}
-                })
+        for row in json.loads(data):
+            self.items.update(
+                {
+                    row["name"]: {
+                        "seeds": row["seeders"],
+                        "leeches": row["leechers"],
+                        "link": self.generate_magnet(row),
+                        "user_status": row["status"],
+                    }
+                }
+            )
 
     def search(self):
-        url = f"{BASE_URL}{SEARCH_LOC}{self.search_query}{self.filter}"
+        url = f"{API_URL}{API_SEARCH_LOC}{self.search_query}{self.filter}"
         data = self.module.http_get_request(url)
         self._parse_data(data)
         return self.items
 
     def list(self):
-        url = f"{BASE_URL}{LIST_LOC}"
+        url = f"{API_URL}{ALI_LIST_LOC}"
         data = self.module.http_get_request(url)
         self._parse_data(data)
         return self.items

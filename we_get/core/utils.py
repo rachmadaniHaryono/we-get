@@ -142,13 +142,12 @@ def msg_item(
     seeds = items['seeds']
     target = items['target']
     user_status = items.get('user_status', None)
+    user_status_text = ''
     if user_status and user_status is not None:
         if user_status == 'vip':
             user_status_text = color(cset['user_status_vip'], user_status)
         else:
             color(cset['user_status'], user_status)
-    else:
-        user_status_text = ''
 
     text = (
         "%s %s [%s/%s] %s" % (

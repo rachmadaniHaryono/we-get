@@ -38,6 +38,7 @@ ITEM_COLOR_SET = {
     'user_status_vip': 'magenta'
 }
 
+
 def format_help(doc, errmsg):
     """ format_help: fix help message.
     """

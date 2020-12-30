@@ -166,7 +166,11 @@ class WGSelect(object):
                     args.append(urls)
                 except Exception:
                     urls = []
-            items = run.main(*args)
+            items = {}
+            try:
+                items = run.main(*args)
+            except HTTPError as err:
+                msg_error(str(err))
             if target == 'jackett_rss':
                 for key, value in items.items():
                     label = value.get('label', target)

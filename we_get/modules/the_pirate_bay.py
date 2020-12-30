@@ -2,10 +2,10 @@
 Copyright (c) 2016-2020 we-get developers (https://github.com/rachmadaniHaryono/we-get/)
 See the file 'LICENSE' for copying permission
 """
-from we_get.core.module import Module
-import urllib
 import json
+import urllib
 
+from we_get.core.module import Module
 
 API_URL = "https://apibay.org"
 API_SEARCH_LOC = "/q.php?q="

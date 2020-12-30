@@ -13,6 +13,7 @@ from collections import OrderedDict
 from importlib import import_module
 from json import dumps
 from sys import exit
+from urllib.error import HTTPError
 
 from docopt import docopt
 

@@ -29,3 +29,11 @@ def test_year():
     m_content.splitlines()[1]
     year = m_content.split('Copyright (c) 2016-')[1].split(' ')[0]
     assert year == str(current_year)
+
+
+def test_version():
+    setup_path = Path(__file__).parent.parent / 'setup.py'
+    with setup_path.open() as f:
+        v_line = next(filter(lambda x: x.startswith('version = '), f.read().splitlines()))
+    from we_get.core.we_get import __version__
+    assert  '"{}"'.format(__version__) == v_line.split('=')[1].strip()

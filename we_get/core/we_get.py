@@ -20,7 +20,7 @@ from docopt import docopt
 from we_get.core.utils import (format_help, list_wg_modules, msg_err_trace,
                                msg_error, msg_fetching, msg_info)
 
-__version__ = "1.1.0"
+__version__ = "1.1.2"
 __doc__ = """Usage: we-get [options]...
 
 Options:

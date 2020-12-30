@@ -8,6 +8,7 @@ import configparser
 import itertools
 import logging
 import re
+import typing
 from collections import OrderedDict
 from importlib import import_module
 from json import dumps
@@ -15,14 +16,8 @@ from sys import exit
 
 from docopt import docopt
 
-from we_get.core.utils import (
-    format_help,
-    list_wg_modules,
-    msg_err_trace,
-    msg_error,
-    msg_fetching,
-    msg_info
-)
+from we_get.core.utils import (format_help, list_wg_modules, msg_err_trace,
+                               msg_error, msg_fetching, msg_info)
 
 __version__ = "1.1.0"
 __doc__ = """Usage: we-get [options]...
@@ -118,10 +113,10 @@ class WGSelect(object):
                 nitems.update({item: self.items[item]})
         return nitems
 
-    def add_items_label(self, target, items):
-        """ add_items_label - add label of the target to the torrent name.
-          @target
-          @items
+    def add_items_label(self, target: str, items: typing.Dict[str, typing.Any]):
+        """add label of the target to the torrent name.
+            @target: label
+            @items: torrent items
         """
         nitems = dict()
 
@@ -164,8 +159,20 @@ class WGSelect(object):
             except Exception:
                 msg_info("Module: \'%s.py\' stopped!" % (target))
                 msg_err_trace(True)
-            items = run.main(self.pargs)
-            items = self.add_items_label(target, items)
+            args = [self.pargs]
+            if target == 'jackett_rss':
+                try:
+                    urls = self.config.get('jackett_rss', 'urls').strip().splitlines()
+                    args.append(urls)
+                except Exception:
+                    urls = []
+            items = run.main(*args)
+            if target == 'jackett_rss':
+                for key, value in items.items():
+                    label = value.get('label', target)
+                    items = self.add_items_label(label, items)
+            else:
+                items = self.add_items_label(target, items)
             if items:
                 self.items.update(items)
             else:

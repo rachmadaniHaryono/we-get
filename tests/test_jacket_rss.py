@@ -11,7 +11,7 @@ from we_get.modules import jackett_rss
 XML1_PATH = pathlib.Path(__file__).parent / "test1.xml"
 
 
-@pytest.mark.skipif('TRAVIS' in os.environ, reason="not run on travis")
+@pytest.mark.skipif("TRAVIS" in os.environ, reason="not run on travis")
 def test_search():
     urls = [
         "http://127.0.0.1:9117/api/v2.0/indexers/linuxtracker/results/torznab/api?apikey=lbwgkgyej6sbt2ubch1jn3615purap0a&t=search&cat=&q="  # NOQA

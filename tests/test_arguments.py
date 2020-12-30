@@ -14,68 +14,68 @@ class TestsArguments(unittest.TestCase):
         self.assertEqual(len(args), 15)
 
     def test_required_argument_search(self):
-        sys.argv = ['prog_name', '--search']
+        sys.argv = ["prog_name", "--search"]
         self.assertRaises(docopt.DocoptExit, docopt.docopt, __doc__)
 
     def test_required_argument_target(self):
-        sys.argv = ['prog_name', '--target']
+        sys.argv = ["prog_name", "--target"]
         self.assertRaises(docopt.DocoptExit, docopt.docopt, __doc__)
 
     def test_required_argument_filter(self):
-        sys.argv = ['prog_name', '--filter']
+        sys.argv = ["prog_name", "--filter"]
         self.assertRaises(docopt.DocoptExit, docopt.docopt, __doc__)
 
     def test_required_argument_results(self):
-        sys.argv = ['prog_name', '--results']
+        sys.argv = ["prog_name", "--results"]
         self.assertRaises(docopt.DocoptExit, docopt.docopt, __doc__)
 
     def test_required_argument_quality(self):
-        sys.argv = ['prog_name', '--quality']
+        sys.argv = ["prog_name", "--quality"]
         self.assertRaises(docopt.DocoptExit, docopt.docopt, __doc__)
 
     def test_required_argument_genre(self):
-        sys.argv = ['prog_name', '--genre']
+        sys.argv = ["prog_name", "--genre"]
         self.assertRaises(docopt.DocoptExit, docopt.docopt, __doc__)
 
     def test_required_argument_sort_type(self):
-        sys.argv = ['prog_name', '--sort-type']
+        sys.argv = ["prog_name", "--sort-type"]
         self.assertRaises(docopt.DocoptExit, docopt.docopt, __doc__)
 
     def test_no_required_argument_list(self):
-        sys.argv = ['prog_name', '--list']
+        sys.argv = ["prog_name", "--list"]
         try:
             docopt.docopt(__doc__)
         except docopt.DocoptExit:
-            self.fail('--list required argument!')
+            self.fail("--list required argument!")
 
     def test_no_required_argument_links(self):
-        sys.argv = ['prog_name', '--links']
+        sys.argv = ["prog_name", "--links"]
         try:
             docopt.docopt(__doc__)
         except docopt.DocoptExit:
-            self.fail('--links required argument!')
+            self.fail("--links required argument!")
 
     def test_no_required_argument_get_list(self):
-        sys.argv = ['prog_name', '--get-list']
+        sys.argv = ["prog_name", "--get-list"]
         try:
             docopt.docopt(__doc__)
         except docopt.DocoptExit:
-            self.fail('--get-list required argument!')
+            self.fail("--get-list required argument!")
 
     def test_no_required_argument_version(self):
-        sys.argv = ['prog_name', '--version']
+        sys.argv = ["prog_name", "--version"]
         try:
             docopt.docopt(__doc__)
         except docopt.DocoptExit:
-            self.fail('--version required argument!')
+            self.fail("--version required argument!")
 
     def test_no_required_argument_json(self):
-        sys.argv = ['prog_name', '--json']
+        sys.argv = ["prog_name", "--json"]
         try:
             docopt.docopt(__doc__)
         except docopt.DocoptExit:
-            self.fail('--json required argument!')
+            self.fail("--json required argument!")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

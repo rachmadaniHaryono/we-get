@@ -12,8 +12,7 @@ LIST_LOC = "/api/v2/list_movies.json?quality=%s&genre=%s"
 
 
 class yts(object):
-    """ yts module using the JSON API.
-    """
+    """yts module using the JSON API."""
 
     def __init__(self, pargs):
         self.links = None
@@ -30,7 +29,7 @@ class yts(object):
         for opt in self.pargs:
             if opt == "--search":
                 self.action = "search"
-                self.search_query = self.pargs[opt][0].replace(' ', '-')
+                self.search_query = self.pargs[opt][0].replace(" ", "-")
             elif opt == "--list":
                 self.action = "list"
             elif opt == "--quality":
@@ -41,21 +40,21 @@ class yts(object):
     def search(self):
         url = "%s%s" % (
             BASE_URL,
-            SEARCH_LOC % (self.search_query, self.quality, self.genre)
+            SEARCH_LOC % (self.search_query, self.quality, self.genre),
         )
         data = json.loads(self.module.http_get_request(url))
         try:
-            api = data['data']['movies']
+            api = data["data"]["movies"]
         except KeyError:
             return self.items
         for movie in api:
-            name = self.module.fix_name(movie['title'])
-            seeds = movie['torrents'][0]['seeds']
-            leeches = movie['torrents'][0]['peers']
-            link = movie['torrents'][0]['url']
-            self.items.update({
-                name: {'seeds': seeds, 'leeches': leeches, 'link': link}
-            })
+            name = self.module.fix_name(movie["title"])
+            seeds = movie["torrents"][0]["seeds"]
+            leeches = movie["torrents"][0]["peers"]
+            link = movie["torrents"][0]["url"]
+            self.items.update(
+                {name: {"seeds": seeds, "leeches": leeches, "link": link}}
+            )
         return self.items
 
     def list(self):
@@ -65,16 +64,17 @@ class yts(object):
         except json.decoder.JSONDecodeError:
             return self.items
         try:
-            api = data['data']['movies']
+            api = data["data"]["movies"]
         except KeyError:
             return self.items
         for movie in api:
-            torrent_name = self.module.fix_name(movie['title'])
-            seeds = movie['torrents'][0]['seeds']
-            leeches = movie['torrents'][0]['peers']
-            link = movie['torrents'][0]['url']
-            self.items.update({torrent_name: {'leeches': leeches,
-                                              'seeds': seeds, 'link': link}})
+            torrent_name = self.module.fix_name(movie["title"])
+            seeds = movie["torrents"][0]["seeds"]
+            leeches = movie["torrents"][0]["peers"]
+            link = movie["torrents"][0]["url"]
+            self.items.update(
+                {torrent_name: {"leeches": leeches, "seeds": seeds, "link": link}}
+            )
         return self.items
 
 

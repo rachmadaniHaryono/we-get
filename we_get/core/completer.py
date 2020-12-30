@@ -16,33 +16,32 @@ class WGCompleter(Completer):
         self.word_after_cursor = None
 
     def word_matches(self, word):
-        """word_matches: match the owrd to the start of the text.
-        """
+        """word_matches: match the owrd to the start of the text."""
         return word.startswith(self.word_before_cursor)
 
     def word_is_subcommand(self, word):
         """word_is_subcommand:
-          split the word if the results are more then 1,
-          this is a sub-comamnd "X Y".
+        split the word if the results are more then 1,
+        this is a sub-comamnd "X Y".
         """
-        if word.endswith(' '):
+        if word.endswith(" "):
             return True
         return False
 
     def words_count(self, text):
-        if text.endswith(' '):
+        if text.endswith(" "):
             return len(text.split()) + 1
         return len(text.split())
 
     def word_command_flags(self, text):
         command = text.split()[0]
         if command in COMMANDS:
-            return COMMANDS[command]['opts']
+            return COMMANDS[command]["opts"]
         return list()
 
     def get_completions(self, document, complete_event):
         """get_completion: main call from the abstract base class "Completer"
-          in prompt_toolkit.
+        in prompt_toolkit.
         """
         self.word_before_cursor = document.get_word_before_cursor(WORD=True)
         self.word_after_cursor = document.text_after_cursor
@@ -51,9 +50,7 @@ class WGCompleter(Completer):
             self.words = COMMANDS
         elif self.words_count(document.text) == 2:
             try:
-                if COMMANDS[document.text[:-1].split()[0]][
-                    'required_argument'
-                ]:
+                if COMMANDS[document.text[:-1].split()[0]]["required_argument"]:
                     self.words = self.torrents
                 else:
                     self.words = list()

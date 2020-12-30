@@ -17,40 +17,39 @@ class Module(object):
         self.cursor = None
 
     def http_get_request(self, url):
-        """ http_request: create HTTP request.
-          @return: data.
+        """http_request: create HTTP request.
+        @return: data.
         """
         opener = urllib.request.build_opener()
-        opener.addheaders = [('User-Agent', USER_AGENT), ("Accept", "*/*")]
+        opener.addheaders = [("User-Agent", USER_AGENT), ("Accept", "*/*")]
         try:
             res = opener.open(url).read().decode()
             return res
         except URLError as err:
-            print('Error when opening following url.\n{}'.format(url))
+            print("Error when opening following url.\n{}".format(url))
             raise err
 
     def http_custom_get_request(self, url, headers):
-        """ http_custom_get_request: HTTP GET request with custom headers.
-          @return: data.
+        """http_custom_get_request: HTTP GET request with custom headers.
+        @return: data.
         """
         opener = urllib.request.build_opener()
         opener.addheaders = headers
         return opener.open(url).read()
 
     def magnet2name(self, link):
-        """ magnet2name: return torrent name from magnet link.
-          @magnet - link.
+        """magnet2name: return torrent name from magnet link.
+        @magnet - link.
         """
         return link.split("&")[1].split("dn=")[1]
 
     def fix_name(self, name):
-        """ fix_name: fix the torrent_name (Hello%20%20Worl+d to Hello_World).
-        """
+        """fix_name: fix the torrent_name (Hello%20%20Worl+d to Hello_World)."""
         name = html_decode(name)
         return urllib.parse.unquote(
-            name.replace('+', '.')
-                .replace('[', '')
-                .replace(']', '')
-                .replace(' ', '.')
-                .replace('\'', '')
+            name.replace("+", ".")
+            .replace("[", "")
+            .replace("]", "")
+            .replace(" ", ".")
+            .replace("'", "")
         )

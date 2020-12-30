@@ -12,8 +12,7 @@ LIST_LOC = "/"
 
 
 class eztv(object):
-    """ eztv module for we-get.
-    """
+    """eztv module for we-get."""
 
     def __init__(self, pargs):
         self.links = None
@@ -28,14 +27,14 @@ class eztv(object):
         for opt in self.pargs:
             if opt == "--search":
                 self.action = "search"
-                self.search_query = self.pargs[opt][0].replace(' ', '-')
+                self.search_query = self.pargs[opt][0].replace(" ", "-")
             elif opt == "--list":
                 self.action = "list"
 
     def _parse_data(self, data):
-        data = data.replace('\t', '').replace('\n', '')
+        data = data.replace("\t", "").replace("\n", "")
         items = re.findall(
-            r'<tr name=\"hover\" class=\"forum_header_border\">(.*?)</tr>',
+            r"<tr name=\"hover\" class=\"forum_header_border\">(.*?)</tr>",
             data,
         )
         seeds = None
@@ -46,20 +45,20 @@ class eztv(object):
             if "magnet:" in item:
                 try:
                     seeds = re.findall(
-                        r'<font color=\"green\">(.*?)</font>',
+                        r"<font color=\"green\">(.*?)</font>",
                         item,
                     )[0]
                     # In case seeds will be 1,212
-                    seeds = seeds.replace(',', '')
+                    seeds = seeds.replace(",", "")
                 except IndexError:
-                    seeds = '0'
+                    seeds = "0"
                 # EZTv will not return lecches ):
                 leeches = "?"
                 magnet = re.findall(r'href=[\'"]?([^\'">]+)', item)[2]
                 name = self.module.fix_name(self.module.magnet2name(magnet))
-                self.items.update({
-                    name: {'seeds': seeds, 'leeches': leeches, 'link': magnet}
-                })
+                self.items.update(
+                    {name: {"seeds": seeds, "leeches": leeches, "link": magnet}}
+                )
 
     def search(self):
         url = "%s%s" % (BASE_URL, SEARCH_LOC % (self.search_query))

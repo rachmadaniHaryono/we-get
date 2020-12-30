@@ -1,10 +1,10 @@
 we-get: command-line tool for searching torrents.
 #################################################
 
-.. image:: https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square   
+.. image:: https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square
     :target: https://github.com/rachmadaniHaryono/we-get/blob/master/LICENSE
-    
-    
+
+
 .. image:: https://img.shields.io/aur/version/we-get-git.svg?maxAge=600
     :target: https://aur.archlinux.org/packages/we-get-git/
 
@@ -64,24 +64,24 @@ Options
 -------
 
 ===================== =====================================================
--s --search=<text>    Search for a torrent.                                
--l --list             List top torrents from modules.                      
--t --target=<target>  Select module to use or 'all' [default: all].        
--L --links            Output results as links.                             
--J --json             Output results in JSON format.                       
--G --get-list         List targets (supported web-sites).                  
+-s --search=<text>    Search for a torrent.
+-l --list             List top torrents from modules.
+-t --target=<target>  Select module to use or 'all' [default: all].
+-L --links            Output results as links.
+-J --json             Output results in JSON format.
+-G --get-list         List targets (supported web-sites).
 -f --filter=<str>     Match text or regular expression in the torrent name.
--n --results=<n>      Number of results to retrieve.                       
--S --sort-type=<type> Sort torrents by name/seeds [default: seeds].        
+-n --results=<n>      Number of results to retrieve.
+-S --sort-type=<type> Sort torrents by name/seeds [default: seeds].
 -c --config=<file>    Load config file.
--w --sfw              Restrict results to safe for work content (the_pirate_bay only)                                    
+-w --sfw              Restrict results to safe for work content (the_pirate_bay only)
 ===================== =====================================================
 
 Video options
 -------------
 
 ================ ==================================================================
--q --quality=<q> Try to match quality for the torrent (720p,1080p, ...).           
+-q --quality=<q> Try to match quality for the torrent (720p,1080p, ...).
 -g --genre=<g>   Try to select video genre for the torrent (action, comedy, etc..).
 ================ ==================================================================
 

@@ -13,8 +13,7 @@ LIST_LOC = "/top-100"
 
 
 class leetx(object):
-    """ 1337x module for we-get.
-    """
+    """1337x module for we-get."""
 
     def __init__(self, pargs):
         self.links = None
@@ -39,8 +38,8 @@ class leetx(object):
         magnet = None
         data = self.module.http_get_request(url)
         links = re.findall(r'href=[\'"]?([^\'">]+)', data)
-        seeders = re.findall(r'<span class=\"seeds\">(.*?)</span>', data)[0]
-        leechers = re.findall(r'<span class=\"leeches\">(.*?)</span>', data)[0]
+        seeders = re.findall(r"<span class=\"seeds\">(.*?)</span>", data)[0]
+        leechers = re.findall(r"<span class=\"leeches\">(.*?)</span>", data)[0]
         item = dict()
         name = None
 
@@ -49,9 +48,7 @@ class leetx(object):
                 magnet = link
                 break
         name = self.module.fix_name(self.module.magnet2name(magnet))
-        item.update(
-            {name: {'seeds': seeders, 'leeches': leechers, 'link': magnet}}
-        )
+        item.update({name: {"seeds": seeders, "leeches": leechers, "link": magnet}})
         return item
 
     def search(self):

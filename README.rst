@@ -27,14 +27,16 @@ run from the root folder
 
 .. code-block:: bash
 
-    $ sudo python setup.py install
+    $ python3 setup.py install
 
 
 or with ``pip``
 
 .. code-block:: bash
 
-    $ sudo pip install git+https://github.com/rachmadaniHaryono/we-get
+    $ pip3 install git+https://github.com/rachmadaniHaryono/we-get
+    $ # or use --user flag to install in your home directory
+    $ pip3 install --user git+https://github.com/rachmadaniHaryono/we-get
 
 
 Dependencies

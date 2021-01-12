@@ -4,6 +4,7 @@ See the file 'LICENSE' for copying.
 """
 import logging
 import re
+import typing
 from json import dumps
 from sys import stdout
 
@@ -68,7 +69,19 @@ class Shell(object):
                 return False
         return True
 
-    def prompt_command_show(self, args):
+    def prompt_command_show(self, args: str):
+        """Handle showing item(s) from given arguments.
+        In this method we can use regex in the torrent name.
+        For example only show torrents with 'S0\\d' string.
+
+        More examples:
+
+            (we-get) # Show all torrents with .Cool
+            (we-get) show .Cool --link
+            (we-get) show Cool.Torrent\\d --target
+        """
+        orig_args = args
+        # NOTE: use shlex.split instead split?
         _ = args.split()
         torrent = _[0]
         _.pop(0)
@@ -76,14 +89,10 @@ class Shell(object):
             args = _[0]
         else:
             args = None
-
-        """In this method we can use regex in the torrent name.
-           for example only show torrents with 'S0\\d' string.
-           more exmaples:
-            show .Cool --link # Show all torrents with .Cool
-            show Cool.Torrent\\d --target
-        """
-        if torrent in self.items.keys():
+        items_idx: List[str] = []
+        if orig_args in self.items:
+            items_idx = [orig_args]
+        elif torrent in self.items.keys():
             items_idx = [torrent]
         else:
             try:

@@ -1,6 +1,8 @@
 from datetime import datetime
 from pathlib import Path
 
+import pytest
+
 
 def test_arg_option_doc():
     readme_path = Path(__file__).parent.parent / "README.rst"
@@ -25,9 +27,28 @@ def test_arg_option_doc():
     assert option_parts == m_option_parts
 
 
-def test_year():
+@pytest.mark.parametrize(
+    "path",
+    [
+        Path(__file__).parent.parent / "we_get" / "__init__.py",
+        Path(__file__).parent.parent / "we_get" / "core" / "__init__.py",
+        Path(__file__).parent.parent / "we_get" / "core" / "commands.py",
+        Path(__file__).parent.parent / "we_get" / "core" / "completer.py",
+        Path(__file__).parent.parent / "we_get" / "core" / "module.py",
+        Path(__file__).parent.parent / "we_get" / "core" / "shell.py",
+        Path(__file__).parent.parent / "we_get" / "core" / "style.py",
+        Path(__file__).parent.parent / "we_get" / "core" / "utils.py",
+        Path(__file__).parent.parent / "we_get" / "core" / "we_get.py",
+        Path(__file__).parent.parent / "we_get" / "modules" / "1337x.py",
+        Path(__file__).parent.parent / "we_get" / "modules" / "__init__.py",
+        Path(__file__).parent.parent / "we_get" / "modules" / "eztv.py",
+        Path(__file__).parent.parent / "we_get" / "modules" / "the_pirate_bay.py",
+        Path(__file__).parent.parent / "we_get" / "modules" / "yts.py",
+        Path(__file__).parent.parent / "setup.py",
+    ],
+)
+def test_year(path):
     current_year = datetime.now().year
-    path = Path(__file__).parent.parent / "we_get" / "core" / "we_get.py"
     with path.open() as f:
         m_content = f.read()
     m_content.splitlines()[1]

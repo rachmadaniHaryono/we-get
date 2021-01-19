@@ -89,7 +89,7 @@ class Shell(object):
             args = _[0]
         else:
             args = None
-        items_idx: List[str] = []
+        items_idx: typing.List[str] = []
         if orig_args in self.items:
             items_idx = [orig_args]
         elif torrent in self.items.keys():

@@ -23,7 +23,16 @@ class Module(object):
         opener = urllib.request.build_opener()
         opener.addheaders = [("User-Agent", USER_AGENT), ("Accept", "*/*")]
         try:
-            res = opener.open(url).read().decode()
+            content = opener.open(url).read()
+            try:
+                res = content.decode()
+            except UnicodeDecodeError as err:
+                print(
+                    "Error when decoding content from following url:\n{}\nContent:\n{}".format(
+                        url, content
+                    )
+                )
+                raise err
             return res
         except URLError as err:
             print("Error when opening following url.\n{}".format(url))

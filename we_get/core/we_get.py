@@ -53,7 +53,7 @@ General options:
 
 
 class WGSelect(object):
-    """ Select which modules to run """
+    """Select which modules to run"""
 
     def __init__(self, pargs):
         self.pargs = pargs
@@ -175,7 +175,7 @@ class WGSelect(object):
             try:
                 items = run.main(*args)
             except HTTPError as err:
-                msg_error(str(err))
+                msg_error(str(err), False)
             if target == "jackett_rss":
                 for key, value in items.items():
                     label = value.get("label", target)
@@ -217,7 +217,7 @@ class WGSelect(object):
 
 
 class WG(object):
-    """ Main module """
+    """Main module"""
 
     def __init__(self):
         self.arguments = None

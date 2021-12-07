@@ -23,11 +23,13 @@ we-get: command-line tool for searching torrents.
 Installation
 ============
 
+.. install new python 3.10 from python website to mac
+.. pip3 install beautifulsoup4 colorama docopt prompt-toolkit Pygments
 run from the root folder
 
 .. code-block:: bash
 
-    $ python3 setup.py install
+    $ sudo /usr/local/bin/python3 -d setup.py install
 
 
 or with ``pip``

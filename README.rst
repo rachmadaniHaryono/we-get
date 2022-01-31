@@ -136,6 +136,8 @@ Supported websites
 * thepiratebay
 * eztv
 * yts
+* limetorrents
+* il corsaro nero
 
 and the list will grow.
 

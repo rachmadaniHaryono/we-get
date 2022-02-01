@@ -22,12 +22,20 @@ class Module(object):
         """
         opener = urllib.request.build_opener()
         opener.addheaders = [('User-Agent', USER_AGENT), ("Accept", "*/*")]
+        res = opener.open(url).read()
         try:
-            res = opener.open(url).read().decode()
+            res = res.decode()
             return res
         except URLError as err:
             print('Error when opening following url.\n{}'.format(url))
             raise err
+        except:
+            try:
+                res = res.decode('latin-1')
+                return res
+            except URLError as err:
+                print('Error when opening following url.\n{}'.format(url))
+                raise err
 
     def http_custom_get_request(self, url, headers):
         """ http_custom_get_request: HTTP GET request with custom headers.

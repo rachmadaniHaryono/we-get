@@ -42,6 +42,12 @@ repos:
     exclude: .copier-answers.yml
     # based on
     # https://gitlab.com/smop/pre-commit-hooks/-/blob/master/.pre-commit-hooks.yaml
+- hooks:
+  - id: commitizen
+    stages:
+    - commit-msg
+  repo: https://github.com/commitizen-tools/commitizen
+  rev: v2.21.2
 - repo: local
   hooks:
   - id: check-poetry

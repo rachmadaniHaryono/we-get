@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on `Keep a Changelog<http://keepachangelog.com/en/1.0.0/>`_
 and this project adheres to `Semantic Versioning<http://semver.org/spec/v2.0.0.html>`_.
 
+1.1.3 - 2022-03-05
+------------------
+
+New
+~~~
+
+- documentation on how to install the program
+- module limetorrents and il corsaro nero
+- module the_pirate_bay size data
+- pre commit config for contributor
+
+Changes
+~~~~~~~
+
+- replace setup.py and requirements-dev.txt with pyproject.toml
+- replace urllib with requests
+
+Fix
+~~~
+
+- handle HTTPError and URLError
+- github action flake8 test
+
 1.1.2 - 2020-11-30
 ------------------
 

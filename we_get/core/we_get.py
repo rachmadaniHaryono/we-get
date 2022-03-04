@@ -12,6 +12,7 @@ from collections import OrderedDict
 from importlib import import_module
 from json import dumps
 from sys import exit
+from urllib.error import HTTPError, URLError
 
 from docopt import docopt
 
@@ -21,7 +22,7 @@ from we_get.core.utils import (
     msg_err_trace,
     msg_error,
     msg_fetching,
-    msg_info
+    msg_info,
 )
 
 __version__ = "1.1.2"
@@ -157,20 +158,26 @@ class WGSelect(object):
             if not self.results_type and not api_mode:
                 msg_fetching(target)
             path = "we_get.modules.%s" % (target)
+            run = None
             try:
                 run = import_module(path)
             except ImportError:
-                msg_error("Cannot find target \'%s\'." % (target), True)
+                msg_error("Cannot find target '%s'." % (target), True)
             except Exception:
-                msg_info("Module: \'%s.py\' stopped!" % (target))
+                msg_info("Module: '%s.py' stopped!" % (target))
                 msg_err_trace(True)
-            items = run.main(self.pargs)
-            items = self.add_items_label(target, items)
-            if items:
-                self.items.update(items)
-            else:
-                msg_error(" \'%s\' - no results" % (target), False)
+            if not run:
                 continue
+            try:
+                items = run.main(self.pargs)
+                items = self.add_items_label(target, items)
+                if items:
+                    self.items.update(items)
+                else:
+                    msg_error(" '%s' - no results" % (target), False)
+                    continue
+            except (HTTPError, URLError) as err:
+                msg_error("Module: '%s.py' %s!" % (target, err), False)
 
         """Sort self.items"""
         if self.filter:

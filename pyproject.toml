@@ -1,5 +1,8 @@
 [tool]
 
+[tool.black]
+line-length = 99
+
 [tool.commitizen]
 name = "cz_conventional_commits"
 version = "1.1.2"

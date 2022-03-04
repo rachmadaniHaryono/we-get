@@ -1,11 +1,10 @@
 """
-Copyright (c) 2016-2020 we-get developers (https://github.com/rachmadaniHaryono/we-get/)
+Copyright (c) 2016-2022 we-get developers (https://github.com/rachmadaniHaryono/we-get/)
 See the file 'LICENSE' for copying.
 """
 
-import urllib.request
+import requests
 import urllib.parse
-from urllib.error import URLError
 from we_get.core.utils import random_user_agent
 from html import unescape as html_decode
 
@@ -20,12 +19,11 @@ class Module(object):
         """ http_request: create HTTP request.
           @return: data.
         """
-        opener = urllib.request.build_opener()
-        opener.addheaders = [('User-Agent', USER_AGENT), ("Accept", "*/*")]
-        try:
-            res = opener.open(url).read().decode()
-            return res
-        except URLError as err:
+        headers = [('User-Agent', USER_AGENT), ("Accept", "*/*")]
+        res = requests.get(url, headers)
+        if res.status_code == 200:
+            return res.text
+        else: 
             print('Error when opening following url.\n{}'.format(url))
             raise err
 
@@ -33,9 +31,7 @@ class Module(object):
         """ http_custom_get_request: HTTP GET request with custom headers.
           @return: data.
         """
-        opener = urllib.request.build_opener()
-        opener.addheaders = headers
-        return opener.open(url).read()
+        return requests.get(url, headers).text
 
     def magnet2name(self, link):
         """ magnet2name: return torrent name from magnet link.

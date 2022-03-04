@@ -1,5 +1,14 @@
 [tool]
 
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "1.1.2"
+tag_format = "$version"
+version_files = [
+    "we_get/core/we_get.py",
+    "pyproject.toml"
+]
+
 [tool.poetry]
 name = "we-get"
 version = "1.1.2"

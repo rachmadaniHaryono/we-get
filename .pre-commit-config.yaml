@@ -1,0 +1,53 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.1.0
+  hooks:
+  - id: check-added-large-files
+  - id: check-toml
+  - id: check-yaml
+  - id: end-of-file-fixer
+  - id: trailing-whitespace
+- repo: https://github.com/bwhmather/ssort
+  rev: v0.11.0
+  hooks:
+  - id: ssort
+- repo: https://github.com/pycqa/isort
+  rev: 5.10.1
+  hooks:
+  - id: isort
+    name: isort (python)
+    args: [--profile=black]
+- repo: https://github.com/psf/black
+  # Replace by any tag/version:
+  # https://github.com/psf/black/tags
+  rev: 22.1.0
+  hooks:
+  - id: black
+    # Should be a command that runs python3.6+
+    language_version: python3
+- repo: https://github.com/commitizen-tools/commitizen
+  rev: v2.21.2
+  hooks:
+  - id: commitizen
+    stages: [commit-msg]
+- repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+  rev: v2.3.0
+  hooks:
+  - id: pretty-format-toml
+    args: [--autofix]
+  - id: pretty-format-yaml
+    args: [--autofix]
+    exclude: .copier-answers.yml
+    # based on
+    # https://gitlab.com/smop/pre-commit-hooks/-/blob/master/.pre-commit-hooks.yaml
+- repo: local
+  hooks:
+  - id: check-poetry
+    name: Poetry check
+    description: Validates the structure of the pyproject.toml file
+    entry: poetry check
+    language: system
+    pass_filenames: false
+    files: pyproject.toml

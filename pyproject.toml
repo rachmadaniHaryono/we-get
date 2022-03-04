@@ -1,0 +1,26 @@
+[tool]
+
+[tool.poetry]
+name = "we-get"
+version = "1.1.2"
+description = "Search torrents from the command-line"
+license = "MIT"
+keywords = ["command", "line", "torrent"]
+homepage = "https://github.com/rachmadaniHaryono/we-get"
+authors = ["Levi Sabah <0xl3vi@gmail.com>"]
+include = ["we_get/txt/useragents.txt"]
+
+[tool.poetry.dependencies]
+python = ">=3.6.2"
+beautifulsoup4 = "^4.10.0"
+colorama = "^0.4.4"
+docopt = "^0.6.2"
+prompt-toolkit = ">=3.0.5"
+pygments = ">=2.6.1"
+
+[tool.poetry.dev-dependencies]
+pytest-flake8 = "^1.0.7"
+vcrpy = "^4.1.1"
+
+[tool.poetry.scripts]
+we-get = 'we_get:main'

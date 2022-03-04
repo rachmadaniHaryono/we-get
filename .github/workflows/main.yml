@@ -2,13 +2,13 @@
 
 name: CI
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -19,20 +19,22 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Setup Python
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.8.6
-          architecture: x64
+    - uses: actions/checkout@v2
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+        architecture: x64
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      - name: Install flake8
-        run: pip install flake8
-      - name: Flake8 action
-        uses: suo/flake8-github-action@v1
-        with:
+    - name: Install flake8
+      run: pip install flake8
+    - name: Flake8 action
+      uses: suo/flake8-github-action@v1
+      with:
           # The name of the check to add annotations to.
-          checkName: 'build'
+        checkName: build

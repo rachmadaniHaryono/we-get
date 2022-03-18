@@ -1,9 +1,14 @@
 # Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue,
-email, or any other method with the owners of this repository before making a change. 
+email, or any other method with the owners of this repository before making a change.
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
+
+## How to release new version
+
+1. Write entries to changelog.rst. Use `git diff` with last version.
+2. Bump the version with cz, `cz bump`. See https://commitizen-tools.github.io/commitizen/bump/
 
 ## Code of Conduct
 

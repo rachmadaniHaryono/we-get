@@ -27,8 +27,14 @@ run from the root folder
 
 .. code-block:: bash
 
-    $ python3 setup.py install
-
+    $ # pip3 user install under $HOME/.local/bin
+    $ # install the build PEP517
+    $ pip3 install --user build
+    $ # build from sources
+    $ python3 -m build .
+    $ pip3 install --user dist/we-get.tar.gz
+    $ # run
+    $ we-get
 
 or with ``pip``
 

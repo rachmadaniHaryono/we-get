@@ -26,7 +26,7 @@ from we_get.core.utils import (
     msg_info,
 )
 
-__version__ = "1.1.4"
+__version__ = "1.1.5"
 __doc__ = """Usage: we-get [options]...
 
 Options:

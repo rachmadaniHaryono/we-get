@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on `Keep a Changelog<http://keepachangelog.com/en/1.0.0/>`_
 and this project adheres to `Semantic Versioning<http://semver.org/spec/v2.0.0.html>`_.
 
+1.1.5 - 2022-03-20
+------------------
+
+Fix
+~~~
+
+- requests dependencies [gmt4]
+- handle JSONDecodeError
+
+New
+~~~
+
+- documentation on how to install with `build` package [gmt4]
+
+Changes
+~~~~~~~
+
+- remove installation method with setup.py [gmt4]
+- handle ImportError [gmt4]
+
 1.1.4 - 2022-03-18
 ------------------
 

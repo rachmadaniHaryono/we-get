@@ -6,6 +6,7 @@ See the file 'LICENSE' for copying.
 import collections
 import configparser
 import itertools
+import json
 import logging
 import re
 from collections import OrderedDict
@@ -175,8 +176,8 @@ class WGSelect(object):
                 else:
                     msg_error(" '%s' - no results" % (target), False)
                     continue
-            except (HTTPError, URLError) as err:
-                msg_error("Module: '%s.py' %s!" % (target, err), False)
+            except (HTTPError, URLError, json.decoder.JSONDecodeError) as err:
+                msg_error("Module: '%s.py' %s: %s!" % (target, type(err).__name__, err), False)
 
         """Sort self.items"""
         if self.filter:

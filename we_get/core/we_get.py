@@ -160,7 +160,8 @@ class WGSelect(object):
             try:
                 run = import_module(path)
             except ImportError:
-                msg_error("Cannot find target '%s'." % (target), True)
+                msg_info("Cannot find target '%s'." % (target))
+                msg_err_trace(True)
             except Exception:
                 msg_info("Module: '%s.py' stopped!" % (target))
                 msg_err_trace(True)

@@ -45,6 +45,10 @@ or with ``pip``
     $ pip3 install https://github.com/rachmadaniHaryono/we-get/archive/refs/tags/1.1.5.tar.gz
     $ # or use --user flag to install in your home directory
     $ pip3 install --user https://github.com/rachmadaniHaryono/we-get/archive/refs/tags/1.1.5.tar.gz
+    $ # or install from master branch directly
+    $ pip3 install --user https://github.com/rachmadaniHaryono/we-get/archive/refs/heads/master.zip
+    $ # or alternative installation method
+    $ pip3 install --user git+https://github.com/rachmadaniHaryono/we-get.git
 
 
 Dependencies

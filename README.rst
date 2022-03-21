@@ -40,9 +40,11 @@ or with ``pip``
 
 .. code-block:: bash
 
-    $ pip3 install git+https://github.com/rachmadaniHaryono/we-get
+    # using a pip version > 10 that supports installation from pyproject.toml
+    $ pip3 install --user pip
+    $ pip3 install https://github.com/rachmadaniHaryono/we-get/archive/refs/tags/1.1.5.tar.gz
     $ # or use --user flag to install in your home directory
-    $ pip3 install --user git+https://github.com/rachmadaniHaryono/we-get
+    $ pip3 install --user https://github.com/rachmadaniHaryono/we-get/archive/refs/tags/1.1.5.tar.gz
 
 
 Dependencies

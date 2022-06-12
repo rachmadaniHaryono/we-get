@@ -176,7 +176,7 @@ class WGSelect(object):
                 else:
                     msg_error(" '%s' - no results" % (target), False)
                     continue
-            except (HTTPError, URLError, json.decoder.JSONDecodeError) as err:
+            except (IndexError, HTTPError, URLError, json.decoder.JSONDecodeError) as err:
                 msg_error("Module: '%s.py' %s: %s!" % (target, type(err).__name__, err), False)
 
         """Sort self.items"""

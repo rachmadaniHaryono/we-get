@@ -7,7 +7,7 @@ from urllib.parse import quote_plus
 from we_get.core.module import Module
 import re
 
-BASE_URL = "https://www.limetorrents.pro/"
+BASE_URL = "https://www.limetorrents.lol/"
 SEARCH_LOC = "/search/all/%s/"
 LIST_LOC = "/top100"
 

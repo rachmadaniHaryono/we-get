@@ -34,6 +34,7 @@ docopt = "^0.6.2"
 prompt-toolkit = ">=3.0.5"
 pygments = ">=2.6.1"
 requests = ">=2.27.1"
+cloudscraper = {version = "^1.2.64", extras = ["cloudflare"]}
 
 [tool.poetry.dev-dependencies]
 pytest-flake8 = "^1.0.7"

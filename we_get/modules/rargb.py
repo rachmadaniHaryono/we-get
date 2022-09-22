@@ -3,8 +3,10 @@ Copyright (c) 2016-2020 we-get developers (https://github.com/rachmadaniHaryono/
 See the file 'LICENSE' for copying permission
 """
 
-from we_get.core.module import Module
 import json
+import typing as T
+
+from we_get.core.module import Module
 
 BASE_URL = "https://www.rarbg.to/torrents.php"
 SEARCH_LOC = "/api/v2/list_movies.json?query_term=%s&quality%s&genre=%s"
@@ -12,8 +14,7 @@ LIST_LOC = "/api/v2/list_movies.json?quality=%s&genre=%s"
 
 
 class rargb(object):
-    """ rargb module using the JSON API.
-    """
+    """rargb module using the JSON API."""
 
     def __init__(self, pargs):
         self.links = None
@@ -30,7 +31,7 @@ class rargb(object):
         for opt in self.pargs:
             if opt == "--search":
                 self.action = "search"
-                self.search_query = self.pargs[opt][0].replace(' ', '-')
+                self.search_query = self.pargs[opt][0].replace(" ", "-")
             elif opt == "--list":
                 self.action = "list"
             elif opt == "--quality":
@@ -38,43 +39,45 @@ class rargb(object):
             elif opt == "--genre":
                 self.genre = self.pargs[opt][0]
 
+    def get_data(self, url: str) -> T.Any:
+        key = "cloudscraper"
+        if key in self.pargs:
+            content = self.pargs[key].get(url).content
+        else:
+            content = self.module.http_get_request(url)
+        return json.loads(content)
+
     def search(self):
-        url = "%s%s" % (
-            BASE_URL,
-            SEARCH_LOC % (self.search_query, self.quality, self.genre)
-        )
-        data = json.loads(self.module.http_get_request(url))
+        url = "%s%s" % (BASE_URL, SEARCH_LOC % (self.search_query, self.quality, self.genre))
+        data = self.get_data(url)
         try:
-            api = data['data']['movies']
+            api = data["data"]["movies"]
         except KeyError:
             return self.items
         for movie in api:
-            name = self.module.fix_name(movie['title'])
-            seeds = movie['torrents'][0]['seeds']
-            leeches = movie['torrents'][0]['peers']
-            link = movie['torrents'][0]['url']
-            self.items.update({
-                name: {'seeds': seeds, 'leeches': leeches, 'link': link}
-            })
+            name = self.module.fix_name(movie["title"])
+            seeds = movie["torrents"][0]["seeds"]
+            leeches = movie["torrents"][0]["peers"]
+            link = movie["torrents"][0]["url"]
+            self.items.update({name: {"seeds": seeds, "leeches": leeches, "link": link}})
         return self.items
 
     def list(self):
         url = "%s%s" % (BASE_URL, LIST_LOC % (self.quality, self.genre))
         try:
-            data = json.loads(self.module.http_get_request(url))
+            data = self.get_data(url)
         except json.decoder.JSONDecodeError:
             return self.items
         try:
-            api = data['data']['movies']
+            api = data["data"]["movies"]
         except KeyError:
             return self.items
         for movie in api:
-            torrent_name = self.module.fix_name(movie['title'])
-            seeds = movie['torrents'][0]['seeds']
-            leeches = movie['torrents'][0]['peers']
-            link = movie['torrents'][0]['url']
-            self.items.update({torrent_name: {'leeches': leeches,
-                                              'seeds': seeds, 'link': link}})
+            torrent_name = self.module.fix_name(movie["title"])
+            seeds = movie["torrents"][0]["seeds"]
+            leeches = movie["torrents"][0]["peers"]
+            link = movie["torrents"][0]["url"]
+            self.items.update({torrent_name: {"leeches": leeches, "seeds": seeds, "link": link}})
         return self.items
 
 

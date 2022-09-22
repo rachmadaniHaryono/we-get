@@ -26,6 +26,12 @@ from we_get.core.utils import (
     msg_info,
 )
 
+try:
+    import cloudscraper
+except ModuleNotFoundError:
+    cloudscraper = None
+
+
 __version__ = "1.1.5"
 __doc__ = """Usage: we-get [options]...
 
@@ -153,6 +159,7 @@ class WGSelect(object):
             self.targets.pop()
             self.targets = list_wg_modules()
 
+        cloudscraper_obj = None
         for target in self.targets:
             if not self.results_type and not api_mode:
                 msg_fetching(target)
@@ -169,7 +176,12 @@ class WGSelect(object):
             if not run:
                 continue
             try:
+                if run.__name__ == "we_get.modules.rargb":
+                    if cloudscraper_obj is None:
+                        cloudscraper_obj = cloudscraper.create_scraper()
+                    self.pargs["cloudscraper"] = cloudscraper_obj
                 items = run.main(self.pargs)
+
                 items = self.add_items_label(target, items)
                 if items:
                     self.items.update(items)
